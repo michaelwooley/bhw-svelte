@@ -1,7 +1,15 @@
 {
   "extends": "@tsconfig/svelte/tsconfig.json",
   "compilerOptions": {
-    "typeRoots": ["./src/types"]
+    "resolveJsonModule": true,
+    "typeRoots": ["./src/types"],
+    "baseUrl": "./src",
+    "paths": {
+      "@app/components/*": ["./src/components/*"],
+      "@app/containers/*": ["./src/containers/*"],
+      "@app/services/*": ["./src/services/*"],
+      "@app/test/*": ["./src/test/*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules/*", "__sapper__/*", "public/*"]

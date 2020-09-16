@@ -1,6 +1,6 @@
 {
-  "name": "svelte-app",
-  "version": "1.0.0",
+  "name": "bhw-svelte",
+  "version": "0.0.1",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
+    "@rollup/plugin-alias": "^3.1.1",
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-node-resolve": "^8.0.0",
     "@rollup/plugin-typescript": "^6.0.0",
@@ -34,5 +35,13 @@
   },
   "dependencies": {
     "sirv-cli": "^1.0.0"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "@app/components/*": "<rootDir>/src/components/$1",
+      "@app/containers/*": "<rootDir>/src/containers/$1",
+      "@app/services/*": "<rootDir>/src/services/$1",
+      "@app/test/*": "<rootDir>/src/test/$1"
+    }
   }
 }
