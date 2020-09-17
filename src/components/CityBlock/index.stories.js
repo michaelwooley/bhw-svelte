@@ -4,20 +4,18 @@ export default {
   title: "City/CityBlock",
   component: CityBlock,
   argTypes: {
-    toggleCity: { action: "onClick" },
+    name: { control: "string" },
   },
 };
 
-const Template = ({ toggleCity, ...args }) => ({
+const Template = ({ ...args }) => ({
   Component: CityBlock,
   props: args,
-  on: {
-    click: toggleCity,
-    "toggle-city": toggleCity,
-  },
+  on: {},
 });
 
 export const Main = Template.bind({});
 Main.args = {
-  label: "Button",
+  name: "City",
+  id: "city",
 };

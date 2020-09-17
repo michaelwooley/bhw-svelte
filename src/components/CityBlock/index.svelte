@@ -1,36 +1,29 @@
 <script>
-  import { createEventDispatcher } from "svelte";
-
-  const dispatch = createEventDispatcher();
-
-  let menuOpen = false;
-
-  function handleToggleCities(): void {
-    dispatch("toggle-city", {});
-  }
+  export let id: string;
+  export let name: string;
 </script>
 
-<div class="card">
+<div class="card" {id}>
   <header class="card-header">
-    <p class="card-header-title">Component</p>
-    <a href="#" class="card-header-icon" aria-label="more options">
-      <span class="icon">
-        <i class="fas fa-angle-down" aria-hidden="true" />
-      </span>
-    </a>
+    <p class="card-header-title">{name}</p>
+    <div class="card-header-icon">
+      <slot name="dropdown">
+        <span class="icon">
+          <i class="fas fa-ellipsis-v" aria-hidden="false" />
+        </span>
+      </slot>
+    </div>
   </header>
-  <div class="card-content">
-    <div class="content">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec
-      iaculis mauris. <a href="#">@bulmaio</a>. <a href="#">#css</a>
-      <a href="#">#responsive</a>
-      <br />
-      <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+  <div class="card-content columns">
+    <div class="column is-one-quarter">
+      <slot name="current-weather">
+        <div class="box has-background-primary-light">Current weather</div>
+      </slot>
+    </div>
+    <div class="column">
+      <slot name="graph">
+        <div class="box has-background-primary-light">Weather graph</div>
+      </slot>
     </div>
   </div>
-  <footer class="card-footer">
-    <a href="#" class="card-footer-item">Save</a>
-    <a href="#" class="card-footer-item">Edit</a>
-    <a href="#" class="card-footer-item">Delete</a>
-  </footer>
 </div>
