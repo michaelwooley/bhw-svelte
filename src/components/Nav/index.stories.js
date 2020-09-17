@@ -4,21 +4,16 @@ export default {
   title: "Nav",
   component: Nav,
   argTypes: {
-    label: { control: "text" },
-    primary: { control: "boolean" },
-    backgroundColor: { control: "color" },
-    size: {
-      control: { type: "select", options: ["small", "medium", "large"] },
-    },
-    onClick: { action: "onClick" },
+    toggleCity: { action: "onClick" },
   },
 };
 
-const Template = ({ onClick, ...args }) => ({
+const Template = ({ toggleCity, ...args }) => ({
   Component: Nav,
   props: args,
   on: {
-    click: onClick,
+    click: toggleCity,
+    "toggle-city": toggleCity,
   },
 });
 

@@ -1,68 +1,47 @@
 <script lang="ts">
-  /**
-   * Is this the principal call to action on the page?
-   */
-  export let primary = false;
+  import { createEventDispatcher } from "svelte";
 
-  /**
-   * What background color to use
-   */
-  export let backgroundColor: string;
-  /**
-   * How large should the button be?
-   */
-  export let size = "medium";
-  /**
-   * Button contents
-   */
-  export let label = "";
+  const dispatch = createEventDispatcher();
 
-  let mode: "storybook-button--primary" | "storybook-button--secondary";
-  $: mode = primary
-    ? "storybook-button--primary"
-    : "storybook-button--secondary";
+  let menuOpen = false;
 
-  let style: string;
-  $: style = backgroundColor ? `background-color: ${backgroundColor}` : "";
+  function handleToggleCities(e: Event): void {
+    dispatch("toggle-city", {});
+  }
 </script>
 
-<style>
-  .storybook-button {
-    font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 700;
-    border: 0;
-    border-radius: 3em;
-    cursor: pointer;
-    display: inline-block;
-    line-height: 1;
-  }
-  .storybook-button--primary {
-    color: white;
-    background-color: #1ea7fd;
-  }
-  .storybook-button--secondary {
-    color: #333;
-    background-color: transparent;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
-  }
-  .storybook-button--small {
-    font-size: 12px;
-    padding: 10px 16px;
-  }
-  .storybook-button--medium {
-    font-size: 14px;
-    padding: 11px 20px;
-  }
-  .storybook-button--large {
-    font-size: 16px;
-    padding: 12px 24px;
-  }
-</style>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/"> <strong>Weather</strong> | Svelte </a>
 
-<button
-  type="button"
-  class={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-  {style}
-  on:click>
-  {label}
-</button>
+    <button
+      role="button"
+      class="navbar-burger burger button is-white"
+      aria-label="menu"
+      aria-expanded="false"
+      data-target="navbarMenu"
+      class:is-active={menuOpen}
+      on:click={() => {
+        menuOpen = !menuOpen;
+      }}>
+      <span aria-hidden="true" />
+      <span aria-hidden="true" />
+      <span aria-hidden="true" />
+    </button>
+  </div>
+
+  <div id="navbarMenu" class="navbar-menu" class:is-active={menuOpen}>
+    <div class="navbar-start" />
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <button class="button is-primary" on:click={handleToggleCities}>
+            <span class="icon is-medium"> <i class="fas fa-city" /> </span>
+            <span>Cities</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
