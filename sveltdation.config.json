@@ -1,0 +1,9 @@
+{
+  "name": "bhw-svelte",
+  "version": "0.0.1",
+  "dirs": {
+    "components": "./src/components",
+    "containers": "./src/containers",
+    "services": "./src/services"
+  }
+}

@@ -21,7 +21,12 @@
     "@storybook/addon-links": "^6.0.21",
     "@storybook/svelte": "^6.0.21",
     "@tsconfig/svelte": "^1.0.0",
+    "@types/commander": "^2.12.2",
+    "@types/inquirer": "^7.3.1",
     "babel-loader": "^8.1.0",
+    "chalk": "^4.1.0",
+    "commander": "^6.1.0",
+    "inquirer": "^7.3.3",
     "react-is": "^16.13.1",
     "rollup": "^2.3.4",
     "rollup-plugin-livereload": "^2.0.0",
@@ -44,5 +49,8 @@
       "@app/services/*": "<rootDir>/src/services/$1",
       "@app/test/*": "<rootDir>/src/test/$1"
     }
+  },
+  "bin": {
+    "sveltdation": "./cli/index.js"
   }
 }
