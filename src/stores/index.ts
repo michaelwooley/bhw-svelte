@@ -1,11 +1,11 @@
 import { writable } from "svelte/store";
 
 export type ModalStore = {
-  cities: boolean;
+  city: boolean;
 };
 
 function createModals() {
-  const { subscribe, update } = writable<ModalStore>({ cities: false });
+  const { subscribe, update } = writable<ModalStore>({ city: false });
 
   return {
     subscribe,
@@ -17,4 +17,4 @@ function createModals() {
   };
 }
 
-export const modals = createModals();
+export const modalStore = createModals();

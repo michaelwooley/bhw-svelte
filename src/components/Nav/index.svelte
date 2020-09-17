@@ -1,18 +1,18 @@
-<script lang="ts">
+<script>
   import { createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher();
 
   let menuOpen = false;
 
-  function handleToggleCities(e: Event): void {
+  function handleToggleCities(): void {
     dispatch("toggle-city", {});
   }
 </script>
 
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="/"> <strong>Weather</strong> | Svelte </a>
+    <div class="navbar-item"><strong>Weather</strong> | Svelte</div>
 
     <button
       role="button"
