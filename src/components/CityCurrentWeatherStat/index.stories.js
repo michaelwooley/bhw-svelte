@@ -11,10 +11,13 @@ export default {
   },
 };
 
-const Template = ({ ...args }) => ({
+const Template = ({ date, ...args }) => ({
   Component: CityCurrentWeatherStat,
   props: args,
   on: {},
+  bind: {
+    date,
+  },
 });
 
 export const Main = Template.bind({});

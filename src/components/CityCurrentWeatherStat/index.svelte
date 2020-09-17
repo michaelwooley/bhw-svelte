@@ -7,23 +7,18 @@
 
 <style>
   .weather-stat {
-    border-bottom: 1px solid #f5f5f5;
+    display: flow-root;
   }
-  .weather-stat > .column {
-    padding: 0.2rem 0.75rem !important;
-  }
-  .weather-stat:hover {
-    background-color: #f5f5f5;
-    cursor: pointer;
+
+  .weather-stat .panel-icon {
+    line-height: 1.5rem;
   }
 </style>
 
-<div class="weather-stat columns" title={description || name}>
-  <div class="column is-narrow">
-    <span class="icon is-small"> <i class={`${icon} is-small`} /> </span>
-  </div>
-  <div class="column has-text-weight-semibold is-narrow">
+<div class="weather-stat panel-block is-selectable" title={description || name}>
+  <span class="panel-icon"> <i class={`${icon} is-small`} /> </span>
+  <span class="has-text-weight-semibold">
     <abbr title={description || name}>{name}</abbr>
-  </div>
-  <div class="column has-text-right">{value}</div>
+  </span>
+  <span class="is-pulled-right">{value}</span>
 </div>

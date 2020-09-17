@@ -4,6 +4,7 @@ export default {
   title: "City/CityCurrentWeather",
   component: CityCurrentWeather,
   argTypes: {
+    date: { control: "date" },
     // isRight: { control: "boolean" },
     // disabled: { control: "boolean" },
     // handleRefresh: { action: "refresh" },
@@ -20,4 +21,6 @@ const Template = ({ ...args }) => ({
 });
 
 export const Main = Template.bind({});
-Main.args = {};
+Main.args = {
+  date: new Date(),
+};
