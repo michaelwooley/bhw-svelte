@@ -3,6 +3,7 @@
 
   export let id: string;
 
+  // TODO CityBlockDropdown actions
   function handleRefresh(): void {
     alert(`Will refresh ${id}`);
   }
