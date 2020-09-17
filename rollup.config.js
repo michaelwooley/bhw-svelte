@@ -1,11 +1,10 @@
-import svelte from "rollup-plugin-svelte";
-import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
+import resolve from "@rollup/plugin-node-resolve";
+import typescript from "@rollup/plugin-typescript";
 import livereload from "rollup-plugin-livereload";
+import svelte from "rollup-plugin-svelte";
 import { terser } from "rollup-plugin-terser";
 const { preprocess } = require("./svelte.config");
-import typescript from "@rollup/plugin-typescript";
-import alias from "@rollup/plugin-alias";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -43,15 +42,6 @@ export default {
     file: "public/build/bundle.js",
   },
   plugins: [
-    alias({
-      entries: [
-        { find: "@app/components", replacement: "./src/components" },
-        { find: "@app/containers", replacement: "./src/containers" },
-        { find: "@app/services", replacement: "./src/services" },
-        { find: "@app/test", replacement: "./src/test" },
-        { find: "@app/stores", replacement: "./src/stores" },
-      ],
-    }),
     svelte({
       // enable run-time checks when not in production
       dev: !production,
@@ -90,6 +80,7 @@ export default {
     // instead of npm run dev), minify
     production && terser(),
   ],
+  preserveEntrySignatures: false,
   watch: {
     clearScreen: false,
   },

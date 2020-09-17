@@ -1,15 +1,29 @@
 {
   "extends": "@tsconfig/svelte/tsconfig.json",
   "compilerOptions": {
-    "resolveJsonModule": true,
-    "typeRoots": ["./src/types"],
-    "baseUrl": "./src",
+    "lib": ["DOM", "ES2017", "WebWorker"],
+    "target": "es2017",
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importsNotUsedAsValues": "error",
+    "isolatedModules": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "strict": true,
+    "typeRoots": ["src/types"],
+    "baseUrl": ".",
     "paths": {
-      "@app/components/*": ["./src/components/*"],
-      "@app/containers/*": ["./src/containers/*"],
-      "@app/services/*": ["./src/services/*"],
-      "@app/test/*": ["./src/test/*"],
-      "@app/stores/*": ["./src/stores/*"]
+      "@app/components": ["src/components"],
+      "@app/components/*": ["src/components/*"],
+      "@app/containers": ["src/containers"],
+      "@app/containers/*": ["src/containers/*"],
+      "@app/services": ["src/services"],
+      "@app/services/*": ["src/services/*"],
+      "@app/test": ["src/test"],
+      "@app/test/*": ["src/test/*"],
+      "@app/stores": ["src/stores"],
+      "@app/stores/*": ["src/stores/*"]
     }
   },
   "include": ["src/**/*"],

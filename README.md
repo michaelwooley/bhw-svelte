@@ -14,6 +14,10 @@
 
 # Development
 
+## Typescript setup
+
+[conversion script](https://github.com/sveltejs/template/blob/master/scripts/setupTypeScript.js)
+
 ## Add a new directory alias
 
 In order to work through tests, typescript, and, compilation need to update three files:
