@@ -49,6 +49,7 @@ export default {
         { find: "@app/containers", replacement: "./src/containers" },
         { find: "@app/services", replacement: "./src/services" },
         { find: "@app/test", replacement: "./src/test" },
+        { find: "@app/stores", replacement: "./src/stores" },
       ],
     }),
     svelte({

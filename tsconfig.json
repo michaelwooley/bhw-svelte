@@ -8,7 +8,8 @@
       "@app/components/*": ["./src/components/*"],
       "@app/containers/*": ["./src/containers/*"],
       "@app/services/*": ["./src/services/*"],
-      "@app/test/*": ["./src/test/*"]
+      "@app/test/*": ["./src/test/*"],
+      "@app/stores/*": ["./src/stores/*"]
     }
   },
   "include": ["src/**/*"],

@@ -6,6 +6,7 @@ const alias = {
   "@app/containers": path.resolve(__dirname, "src/containers/"),
   "@app/services": path.resolve(__dirname, "src/services/"),
   "@app/test": path.resolve(__dirname, "src/test/"),
+  "@app/stores": path.resolve(__dirname, "src/stores/"),
 };
 
 // Export a function. Accept the base config as the only param.
