@@ -1,6 +1,17 @@
 export type IWeatherUnit = { link?: string; name: string; abbrev: string };
 
-export const WEATHER_UNITS: { [k: string]: IWeatherUnit } = {
+export enum WEATHER_UNIT_KEYS {
+  degF = "degF",
+  degC = "degC",
+  degree_angle = "degree_(angle)",
+  km_h_1 = "km_h-1",
+  Pa = "Pa",
+  m = "m",
+  inch = "inch",
+  percent = "percent",
+}
+
+export const WEATHER_UNITS: { [k in WEATHER_UNIT_KEYS]: IWeatherUnit } = {
   degF: {
     link: undefined,
     name: "Degrees Fahrenheit",
@@ -43,6 +54,25 @@ export const WEATHER_UNITS: { [k: string]: IWeatherUnit } = {
   },
 };
 
+export enum WEATHER_STAT_KEYS {
+  temperature = "temperature",
+  dewpoint = "dewpoint",
+  windDirection = "windDirection",
+  windSpeed = "windSpeed",
+  windGust = "windGust",
+  barometricPressure = "barometricPressure",
+  seaLevelPressure = "seaLevelPressure",
+  visibility = "visibility",
+  maxTemperatureLast24Hours = "maxTemperatureLast24Hours",
+  minTemperatureLast24Hours = "minTemperatureLast24Hours",
+  precipitationLastHour = "precipitationLastHour",
+  precipitationLast3Hours = "precipitationLast3Hours",
+  precipitationLast6Hours = "precipitationLast6Hours",
+  relativeHumidity = "relativeHumidity",
+  windChill = "windChill",
+  heatIndex = "heatIndex",
+}
+
 export type IWeatherStatSpec = {
   unit: string;
   description: string;
@@ -50,7 +80,9 @@ export type IWeatherStatSpec = {
   abbrev: string;
 };
 
-export const WEATHER_STAT_SPEC: { [k: string]: IWeatherStatSpec } = {
+export const WEATHER_STAT_SPEC: {
+  [k in WEATHER_STAT_KEYS]: IWeatherStatSpec;
+} = {
   temperature: {
     unit: "degC",
     description: "Air temperature.",
