@@ -23,7 +23,9 @@
       "@app/test": ["src/test"],
       "@app/test/*": ["src/test/*"],
       "@app/stores": ["src/stores"],
-      "@app/stores/*": ["src/stores/*"]
+      "@app/stores/*": ["src/stores/*"],
+      "@app/common": ["src/common"],
+      "@app/common/*": ["src/common/*"]
     }
   },
   "include": ["src/**/*"],
