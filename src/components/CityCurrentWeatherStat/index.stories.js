@@ -8,6 +8,8 @@ export default {
     name: { control: "string" },
     value: { control: "number" },
     description: { control: "string" },
+    unit: { control: "string" },
+    unitAbbrev: { control: "string" },
   },
 };
 
@@ -26,4 +28,6 @@ Main.args = {
   name: "Temperature",
   value: "98.6",
   description: "Temperature in farheneit.",
+  unit: "Meters",
+  unitAbbrev: "m",
 };
