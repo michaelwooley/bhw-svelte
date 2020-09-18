@@ -1,16 +1,12 @@
 import CityCurrentWeather from "./index.svelte";
 
+import StationObservationsLatest from "@app/test/data/station-observations-latest.json";
+
 export default {
   title: "City/CityCurrentWeather",
   component: CityCurrentWeather,
   argTypes: {
-    date: { control: "date" },
-    // isRight: { control: "boolean" },
-    // disabled: { control: "boolean" },
-    // handleRefresh: { action: "refresh" },
-    // handleMoveUp: { action: "move-up" },
-    // handleMoveDown: { action: "move-down" },
-    // handleRemove: { action: "remove" },
+    data: { control: "object" },
   },
 };
 
@@ -22,5 +18,5 @@ const Template = ({ ...args }) => ({
 
 export const Main = Template.bind({});
 Main.args = {
-  date: new Date(),
+  data: StationObservationsLatest,
 };

@@ -21,7 +21,7 @@ export declare interface StationObservation {
       unitCode: string;
     };
     station: string;
-    timestamp: string | Date;
+    timestamp: string;
     rawMessage: string;
     textDescription: string;
     icon: string;
