@@ -17,6 +17,7 @@
     "@rollup/plugin-typescript": "^6.0.0",
     "@storybook/addon-a11y": "^6.0.21",
     "@storybook/addon-actions": "^6.0.21",
+    "@storybook/addon-console": "^1.2.1",
     "@storybook/addon-essentials": "^6.0.21",
     "@storybook/addon-links": "^6.0.21",
     "@storybook/svelte": "^6.0.21",
