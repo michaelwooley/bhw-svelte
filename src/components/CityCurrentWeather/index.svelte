@@ -1,36 +1,25 @@
 <script>
+  import { WEATHER_STAT_SPEC, WEATHER_UNITS } from "@app/common/weather";
   import Stat from "@app/components/CityCurrentWeatherStat/index.svelte";
-  // import { createEventDispatcher } from "svelte";
 
-  // const dispatch = createEventDispatcher();
-
-  export let date: Date;
-  // export let data: unknown;
-
-  function handleDateChange(this: HTMLInputElement): void {
-    console.log(this.value);
-    // date = e?.target?.value;
-  }
+  let k = Object.keys(WEATHER_UNITS);
+  console.log(k.map((k_) => `${k_} = "${k_}"`).join(",\n"));
 </script>
 
 <style>
 </style>
 
 <article class="panel">
-  <p class="panel-heading">Weather for</p>
-  <div class="panel-block">
-    <p class="control has-icons-left">
-      <input
-        class="input is-primary"
-        type="date"
-        on:change={handleDateChange}
-        value={date.toLocaleString()} />
-      <span class="icon is-left">
-        <i class="fas fa-calendar" aria-hidden="true" />
-      </span>
-    </p>
-  </div>
-  {#each [0, 1, 2, 3] as i}
-    <Stat name="name" value={4} icon="fas fa-cloud" />
+  <p class="panel-heading">Current weather</p>
+  {#each WEATHER_STAT_SPEC as { id, name, abbrev, description, unit, icon, isDefault }}
+    {#if isDefault}
+      <Stat
+        {name}
+        value={4}
+        {description}
+        {icon}
+        unit={WEATHER_UNITS[unit].name}
+        unitAbbrev={WEATHER_UNITS[unit].abbrev} />
+    {/if}
   {/each}
 </article>

@@ -2,6 +2,8 @@
   export let icon: string;
   export let name: string;
   export let value: string | number;
+  export let unit: string;
+  export let unitAbbrev: string;
   export let description: string | null = null;
 </script>
 
@@ -20,5 +22,9 @@
   <span class="has-text-weight-semibold">
     <abbr title={description || name}>{name}</abbr>
   </span>
-  <span class="is-pulled-right">{value}</span>
+  <span class="is-pulled-right">{value}
+    <span class="is-size-7 is-italic">
+      <abbr title={unit}> {unitAbbrev} </abbr>
+    </span>
+  </span>
 </div>

@@ -79,8 +79,8 @@ export type IWeatherStatSpec = {
   description: string;
   name: string;
   abbrev: string;
-  icon?: string;
-  default: boolean;
+  icon: string;
+  isDefault: boolean;
 };
 
 export const WEATHER_STAT_SPEC: IWeatherStatSpec[] = [
@@ -91,7 +91,7 @@ export const WEATHER_STAT_SPEC: IWeatherStatSpec[] = [
     name: "Temperature",
     abbrev: "Temp",
     icon: "fas fa-temperature-high",
-    default: true,
+    isDefault: true,
   },
   {
     id: WEATHER_STAT_KEYS.dewpoint,
@@ -101,7 +101,7 @@ export const WEATHER_STAT_SPEC: IWeatherStatSpec[] = [
     name: "Dew point",
     abbrev: "Dew",
     icon: "fas fa-mountain",
-    default: true,
+    isDefault: true,
   },
   {
     id: WEATHER_STAT_KEYS.windDirection,
@@ -111,7 +111,7 @@ export const WEATHER_STAT_SPEC: IWeatherStatSpec[] = [
     name: "Wind direction",
     abbrev: "Wind dir.",
     icon: "fas fa-compass",
-    default: false,
+    isDefault: false,
   },
   {
     id: WEATHER_STAT_KEYS.windSpeed,
@@ -121,7 +121,7 @@ export const WEATHER_STAT_SPEC: IWeatherStatSpec[] = [
     name: "Wind speed",
     abbrev: "Wind",
     icon: "fas fa-wind",
-    default: true,
+    isDefault: true,
   },
   {
     id: WEATHER_STAT_KEYS.windGust,
@@ -131,7 +131,7 @@ export const WEATHER_STAT_SPEC: IWeatherStatSpec[] = [
     name: "Wind gust",
     abbrev: "Wind gust",
     icon: "fas fa-wind",
-    default: false,
+    isDefault: false,
   },
   {
     id: WEATHER_STAT_KEYS.barometricPressure,
@@ -140,7 +140,7 @@ export const WEATHER_STAT_SPEC: IWeatherStatSpec[] = [
     name: "Barometric pressure",
     abbrev: "Pressure",
     icon: "fas fa-weight-hanging",
-    default: true,
+    isDefault: true,
   },
   {
     id: WEATHER_STAT_KEYS.seaLevelPressure,
@@ -150,7 +150,7 @@ export const WEATHER_STAT_SPEC: IWeatherStatSpec[] = [
     name: "Sea level pressure",
     abbrev: "Pressure (Sea)",
     icon: "fas fa-weight-hanging",
-    default: false,
+    isDefault: false,
   },
   {
     id: WEATHER_STAT_KEYS.visibility,
@@ -160,7 +160,7 @@ export const WEATHER_STAT_SPEC: IWeatherStatSpec[] = [
     name: "Visibility",
     abbrev: "Viz",
     icon: "fas fa-eye",
-    default: true,
+    isDefault: true,
   },
   {
     id: WEATHER_STAT_KEYS.maxTemperatureLast24Hours,
@@ -170,7 +170,7 @@ export const WEATHER_STAT_SPEC: IWeatherStatSpec[] = [
     name: "Max temperature (24h)",
     abbrev: "Max Temp.",
     icon: "fas fa-temperature-high",
-    default: false,
+    isDefault: false,
   },
   {
     id: WEATHER_STAT_KEYS.minTemperatureLast24Hours,
@@ -180,7 +180,7 @@ export const WEATHER_STAT_SPEC: IWeatherStatSpec[] = [
     name: "Min temperature (24h)",
     abbrev: "Min Temp.",
     icon: "fas fa-temperature-low",
-    default: false,
+    isDefault: false,
   },
   {
     id: WEATHER_STAT_KEYS.precipitationLastHour,
@@ -190,7 +190,7 @@ export const WEATHER_STAT_SPEC: IWeatherStatSpec[] = [
     name: "Precipitation in last hour",
     abbrev: "Rain",
     icon: "fas fa-cloud-rain",
-    default: true,
+    isDefault: true,
   },
   {
     id: WEATHER_STAT_KEYS.precipitationLast3Hours,
@@ -200,7 +200,7 @@ export const WEATHER_STAT_SPEC: IWeatherStatSpec[] = [
     name: "Precipitation in last three hours",
     abbrev: "Rain (3h)",
     icon: "fas fa-cloud-rain",
-    default: false,
+    isDefault: false,
   },
   {
     id: WEATHER_STAT_KEYS.precipitationLast6Hours,
@@ -210,7 +210,7 @@ export const WEATHER_STAT_SPEC: IWeatherStatSpec[] = [
     name: "Precipitation in last six hours",
     abbrev: "Rain (6h)",
     icon: "fas fa-cloud-rain",
-    default: false,
+    isDefault: false,
   },
   {
     id: WEATHER_STAT_KEYS.relativeHumidity,
@@ -220,7 +220,7 @@ export const WEATHER_STAT_SPEC: IWeatherStatSpec[] = [
     name: "Relative humidity",
     abbrev: "Humidity",
     icon: "fas fa-grin-beam-sweat",
-    default: true,
+    isDefault: true,
   },
   {
     id: WEATHER_STAT_KEYS.windChill,
@@ -230,7 +230,7 @@ export const WEATHER_STAT_SPEC: IWeatherStatSpec[] = [
     name: "Wind chill",
     abbrev: "Wind chill",
     icon: "fas fa-icicles",
-    default: true,
+    isDefault: true,
   },
   {
     id: WEATHER_STAT_KEYS.heatIndex,
@@ -240,6 +240,6 @@ export const WEATHER_STAT_SPEC: IWeatherStatSpec[] = [
     name: "Heat index",
     abbrev: "Heat index",
     icon: "fas fa-fire",
-    default: true,
+    isDefault: true,
   },
 ];
