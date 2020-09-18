@@ -11,6 +11,7 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "strict": true,
+    "resolveJsonModule": true,
     "typeRoots": ["src/types"],
     "baseUrl": ".",
     "paths": {
@@ -23,7 +24,9 @@
       "@app/test": ["src/test"],
       "@app/test/*": ["src/test/*"],
       "@app/stores": ["src/stores"],
-      "@app/stores/*": ["src/stores/*"]
+      "@app/stores/*": ["src/stores/*"],
+      "@app/common": ["src/common"],
+      "@app/common/*": ["src/common/*"]
     }
   },
   "include": ["src/**/*"],
