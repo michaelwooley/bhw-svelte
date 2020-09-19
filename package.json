@@ -27,6 +27,7 @@
     "@types/node": "^14.11.1",
     "babel-loader": "^8.1.0",
     "babel-plugin-module-resolver": "^4.0.0",
+    "fetch-mock": "^9.10.7",
     "jest": "^26.4.2",
     "moment": "^2.28.0",
     "react-is": "^16.13.1",
@@ -46,11 +47,6 @@
     "sirv-cli": "^1.0.0"
   },
   "jest": {
-    "globals": {
-      "ts-jest": {
-        "tsconfig": "tsconfig.test.json"
-      }
-    },
     "moduleFileExtensions": [
       "js",
       "json",
@@ -68,7 +64,7 @@
     "verbose": true,
     "testTimeout": 5000,
     "moduleNameMapper": {
-      "@app/*": "<rootDir>/src/$1"
+      "@app/(.+)": "<rootDir>/src/$1"
     }
   }
 }
