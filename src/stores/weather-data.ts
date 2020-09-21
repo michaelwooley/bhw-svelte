@@ -6,59 +6,63 @@ import type {
   WeatherApiStationObservations,
 } from "src/types/weather-api";
 import { writable } from "svelte/store";
+import type { IStationName } from "@app/common/data/stations";
 
 export type WeatherDataStore = {
-  name: string;
+  station: IStationName;
   id: string;
 
-  historical: WeatherApiStationObservations;
-  latest: WeatherApiStationObservationLatest;
+  // historical: WeatherApiStationObservations;
+  // latest: WeatherApiStationObservationLatest;
 
-  lastUpdated: Date;
+  lastUpdated: {
+    latest: Date;
+  };
 };
 
 const LIMIT = 10;
 
+const REFRESH_INTERVAL = 480000; // 8 minutes
+
 /**
  * NOTE Use localForage to store: https://github.com/localForage/localForage
- *
  */
 function createWeatherData() {
-  const storage = localForage.createInstance({ name: STORAGE_KEYS.WEATHER });
-  const store = writable<WeatherDataStore[]>([]);
+  const STORAGE_PREFIX = "BH_SVELTE_WEATHER_DATA";
+  const MAIN_LIST_KEY = "LIST";
+  const LATEST_DATA_KEY = "LATEST";
 
-  const init = () => {
-    storage
-      .keys()
-      .then((stationIds) =>
-        Promise.all(stationIds.map((s) => storage.getItem<WeatherDataStore>(s)))
-      )
-      .then((items: (null | WeatherDataStore)[]) => {
-        // TODO Update if lastUpdate > n seconds
-        store.set(items.filter((item): item is WeatherDataStore => !!item));
-      })
-      .catch((e) => {
-        throw new Error(e);
-      });
+  const _getKeyLocalStorage = (key: string) => `${STORAGE_PREFIX}:${key}`;
+  const setLocalStorage = (key: string, obj: any) =>
+    localStorage.setItem(_getKeyLocalStorage(key), JSON.stringify(obj));
+  const getLocalStorage = (key: string, alt: any = null) => {
+    const str = localStorage.getItem(_getKeyLocalStorage(key));
+    if (str) {
+      return JSON.parse(str);
+    } else {
+      return alt;
+    }
   };
 
-  // const _initOneStation = async (
-  //   stationId: string
-  // ): Promise<WeatherDataStore> => {
-  //   const item = await storage.getItem<WeatherDataStore>(s);
+  const storage = localForage.createInstance({ name: STORAGE_KEYS.WEATHER });
+  const store = writable<WeatherDataStore[]>(
+    getLocalStorage(MAIN_LIST_KEY, [])
+  );
+  const latestDataStore = writable<{
+    [id: string]: WeatherApiStationObservationLatest;
+  }>(getLocalStorage(LATEST_DATA_KEY, []));
 
-  //   if (item) {
-  //     return item;
-  //   } else {
-  //   }
-  // };
+  const fetchLatest = (id: string) =>
+    weatherLatest(id).then((d) => {
+      store.update((items) => {});
+    });
 
-  const add = (name: string, id: string): void => {
-    Promise.all([weatherLatest(id), weatherHistorical(id, LIMIT)])
-      .then(([latest, historical]) =>
+  const add = (station: IStationName, id: string): void => {
+    Promise.all([weatherLatest(id)])
+      .then(([latest]) =>
         store.update((d) => {
           const lastUpdated = new Date();
-          const item = { name, id, latest, historical, lastUpdated };
+          const item = { station, id, latest, lastUpdated };
 
           storage.setItem(id, item);
           return d.filter((item) => item.id !== id).concat(item);
@@ -89,7 +93,22 @@ function createWeatherData() {
   };
 
   const refresh = (id: string) => {
-    console.log(`Will refresh id = ${id}`);
+    store.update((items) => {
+      const idx = items.findIndex((item) => item.id === id);
+      if (!!!idx) {
+        return items;
+      }
+      const item = items[idx];
+
+      if (
+        new Date().valueOf() - item.lastUpdated.valueOf() <
+        REFRESH_INTERVAL * 0.75
+      ) {
+        return items;
+      }
+
+      return items;
+    });
   };
   const refreshAll = () => {
     console.log("will refresh all data");
