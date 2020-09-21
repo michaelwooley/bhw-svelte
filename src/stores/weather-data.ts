@@ -9,7 +9,7 @@ import { writable } from "svelte/store";
 
 export type WeatherDataStore = {
   name: string;
-  stationId: string;
+  id: string;
 
   historical: WeatherApiStationObservations;
   latest: WeatherApiStationObservationLatest;
@@ -27,8 +27,12 @@ function createWeatherData() {
   const storage = localForage.createInstance({ name: STORAGE_KEYS.WEATHER });
   const store = writable<WeatherDataStore[]>([]);
 
-  const init = (stationIds: string[]) => {
-    Promise.all(stationIds.map((s) => storage.getItem<WeatherDataStore>(s)))
+  const init = () => {
+    storage
+      .keys()
+      .then((stationIds) =>
+        Promise.all(stationIds.map((s) => storage.getItem<WeatherDataStore>(s)))
+      )
       .then((items: (null | WeatherDataStore)[]) => {
         // TODO Update if lastUpdate > n seconds
         store.set(items.filter((item): item is WeatherDataStore => !!item));
@@ -49,15 +53,15 @@ function createWeatherData() {
   //   }
   // };
 
-  const add = (name: string, stationId: string): void => {
-    Promise.all([weatherLatest(stationId), weatherHistorical(stationId, LIMIT)])
+  const add = (name: string, id: string): void => {
+    Promise.all([weatherLatest(id), weatherHistorical(id, LIMIT)])
       .then(([latest, historical]) =>
         store.update((d) => {
           const lastUpdated = new Date();
-          const item = { name, stationId, latest, historical, lastUpdated };
+          const item = { name, id, latest, historical, lastUpdated };
 
-          storage.setItem(stationId, item);
-          return d.filter((item) => item.stationId !== stationId).concat(item);
+          storage.setItem(id, item);
+          return d.filter((item) => item.id !== id).concat(item);
         })
       )
       .catch((e) => {
@@ -65,24 +69,42 @@ function createWeatherData() {
       });
   };
 
-  const remove = (stationId: string) =>
+  const remove = (id: string) =>
     store.update((d) => {
-      storage.removeItem(stationId);
-      return d.filter((item) => item.stationId !== stationId);
+      storage.removeItem(id);
+      return d.filter((item) => item.id !== id);
     });
 
   const removeAll = () => {
     storage.clear();
-    store.update((d) => []);
+    store.set([]);
+  };
+
+  const moveUp = (id: string) => {
+    console.log("will move up");
+  };
+
+  const moveDown = (id: string) => {
+    console.log("will move down");
+  };
+
+  const refresh = (id: string) => {
+    console.log(`Will refresh id = ${id}`);
+  };
+  const refreshAll = () => {
+    console.log("will refresh all data");
   };
 
   return {
     subscribe: store.subscribe,
     init,
-    // refresh,
     add,
     remove,
     removeAll,
+    moveUp,
+    moveDown,
+    refresh,
+    refreshAll,
   };
 }
 

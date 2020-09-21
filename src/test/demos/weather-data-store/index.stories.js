@@ -15,6 +15,4 @@ const Template = ({ ...args }) => ({
 });
 
 export const Main = Template.bind({});
-Main.args = {
-  stationIds: [],
-};
+Main.args = {};
