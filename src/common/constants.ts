@@ -3,3 +3,7 @@
 // TODO Add actual URL
 export const URL = "https://github.com/michaelwooley/bhw-svelte";
 export const CONTACT_EMAIL = "wm.wooley@gmail.com";
+
+export enum STORAGE_KEYS {
+  WEATHER = "weatherData",
+}
