@@ -3,10 +3,8 @@
 </script>
 
 <style>
-  footer.app-footer {
-    position: fixed;
-    width: 100%;
-    bottom: 0px;
+  .spacer {
+    height: 2rem;
   }
 
   ul {
@@ -15,7 +13,8 @@
   }
 </style>
 
-<footer class="footer app-footer">
+<div class="spacer" />
+<footer class="footer">
   <div class="columns">
     <div class="column is-3">
       <h6 class="is-size-5">
