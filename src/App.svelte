@@ -2,13 +2,13 @@
   import Nav from "@app/containers/Nav.svelte";
   import { weatherLatest, weatherHistorical } from "@app/services/weather";
 
-  async function getLatest(stationId: string) {
+  async function getLatest(stationId: string): Promise<void> {
     const res = await weatherLatest(stationId);
 
     data = JSON.stringify(res);
   }
 
-  async function getHistorical(stationId: string) {
+  async function getHistorical(stationId: string): Promise<void> {
     const res = await weatherHistorical(stationId, 2);
 
     data = JSON.stringify(res);
