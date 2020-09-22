@@ -1,32 +1,27 @@
-import { STORAGE_KEYS } from "@app/common/constants";
-import { weatherHistorical, weatherLatest } from "@app/services/weather";
-import localForage from "localforage";
-import type {
-  WeatherApiStationObservationLatest,
-  WeatherApiStationObservations,
-} from "src/types/weather-api";
-import { writable } from "svelte/store";
 import type { IStationName } from "@app/common/data/stations";
+import { WEATHER_API_DATA_INTERVAL } from "@app/common";
+import { weatherLatest } from "@app/services/weather";
+import type { WeatherApiStationObservationLatest } from "src/types/weather-api";
+import { writable } from "svelte/store";
 
-export type WeatherDataStore = {
+export type WeatherDataStoreStation = {
   station: IStationName;
   id: string;
-
-  // historical: WeatherApiStationObservations;
-  // latest: WeatherApiStationObservationLatest;
 
   lastUpdated: {
     latest: Date;
   };
 };
 
-const LIMIT = 10;
+export type LatestObs = {
+  [id: string]: WeatherApiStationObservationLatest;
+};
 
-const REFRESH_INTERVAL = 480000; // 8 minutes
+export type WeatherDataStore = {
+  stations: WeatherDataStoreStation[];
+  latest: LatestObs;
+};
 
-/**
- * NOTE Use localForage to store: https://github.com/localForage/localForage
- */
 function createWeatherData() {
   const STORAGE_PREFIX = "BH_SVELTE_WEATHER_DATA";
   const MAIN_LIST_KEY = "LIST";
@@ -35,7 +30,7 @@ function createWeatherData() {
   const _getKeyLocalStorage = (key: string) => `${STORAGE_PREFIX}:${key}`;
   const setLocalStorage = (key: string, obj: any) =>
     localStorage.setItem(_getKeyLocalStorage(key), JSON.stringify(obj));
-  const getLocalStorage = (key: string, alt: any = null) => {
+  const getLocalStorage = <T>(key: string, alt: T): T => {
     const str = localStorage.getItem(_getKeyLocalStorage(key));
     if (str) {
       return JSON.parse(str);
@@ -44,79 +39,126 @@ function createWeatherData() {
     }
   };
 
-  const storage = localForage.createInstance({ name: STORAGE_KEYS.WEATHER });
-  const store = writable<WeatherDataStore[]>(
-    getLocalStorage(MAIN_LIST_KEY, [])
-  );
-  const latestDataStore = writable<{
-    [id: string]: WeatherApiStationObservationLatest;
-  }>(getLocalStorage(LATEST_DATA_KEY, []));
+  const storeInit = {
+    stations: getLocalStorage<WeatherDataStoreStation[]>(MAIN_LIST_KEY, []),
+    latest: getLocalStorage<LatestObs>(LATEST_DATA_KEY, {}),
+  };
+  let stations = storeInit.stations;
+  let latest = storeInit.latest;
 
-  const fetchLatest = (id: string) =>
-    weatherLatest(id).then((d) => {
-      store.update((items) => {});
+  const store = writable<WeatherDataStore>(storeInit);
+
+  const setAll = () => {
+    setLocalStorage(LATEST_DATA_KEY, latest);
+    setLocalStorage(MAIN_LIST_KEY, stations);
+    store.set({
+      stations,
+      latest,
     });
-
-  const add = (station: IStationName, id: string): void => {
-    Promise.all([weatherLatest(id)])
-      .then(([latest]) =>
-        store.update((d) => {
-          const lastUpdated = new Date();
-          const item = { station, id, latest, lastUpdated };
-
-          storage.setItem(id, item);
-          return d.filter((item) => item.id !== id).concat(item);
-        })
-      )
-      .catch((e) => {
-        throw new Error(e);
-      });
   };
 
-  const remove = (id: string) =>
-    store.update((d) => {
-      storage.removeItem(id);
-      return d.filter((item) => item.id !== id);
+  const setStations = () => {
+    setLocalStorage(MAIN_LIST_KEY, stations);
+    store.update((s) => {
+      s.stations = stations;
+      return s;
     });
+  };
+
+  const setLatest = () => {
+    setLocalStorage(LATEST_DATA_KEY, latest);
+    store.update((s) => {
+      s.latest = latest;
+      return s;
+    });
+  };
+
+  const add = async (station: IStationName): Promise<void> => {
+    const id = station.id;
+    if (stations.some((s: WeatherDataStoreStation) => s.id === id)) {
+      throw new Error(`Station ${station.id} is already in set.`);
+    }
+
+    latest[id] = await weatherLatest(station.id);
+    stations = stations.concat([
+      {
+        id,
+        station,
+        lastUpdated: { latest: new Date() },
+      },
+    ]);
+
+    setAll();
+  };
+
+  const remove = (id: string) => {
+    stations = stations.filter((s) => s.id !== id);
+    delete latest[id];
+    setAll();
+  };
 
   const removeAll = () => {
-    storage.clear();
-    store.set([]);
+    stations = [];
+    latest = {};
+    setAll();
   };
 
-  const moveUp = (id: string) => {
-    console.log("will move up");
+  const _refresh = async (id: string): Promise<boolean> => {
+    if (
+      new Date().valueOf() -
+        new Date(latest[id].properties.timestamp).valueOf() <
+      WEATHER_API_DATA_INTERVAL
+    )
+      return false;
+
+    latest[id] = await weatherLatest(id);
+    return true;
   };
 
-  const moveDown = (id: string) => {
-    console.log("will move down");
+  const refresh = async (id: string): Promise<void> => {
+    if (!(await _refresh(id))) return;
+
+    stations = stations.map((s) =>
+      s.id === id
+        ? { ...s, lastUpdated: { ...s.lastUpdated, latest: new Date() } }
+        : s
+    );
+    setAll();
+    return;
   };
 
-  const refresh = (id: string) => {
-    store.update((items) => {
-      const idx = items.findIndex((item) => item.id === id);
-      if (!!!idx) {
-        return items;
-      }
-      const item = items[idx];
-
-      if (
-        new Date().valueOf() - item.lastUpdated.valueOf() <
-        REFRESH_INTERVAL * 0.75
-      ) {
-        return items;
-      }
-
-      return items;
-    });
+  const refreshAll = async (): Promise<void> => {
+    const isUpdated = await Promise.all(stations.map((s) => _refresh(s.id)));
+    stations = stations.map((s, i) =>
+      isUpdated[i]
+        ? { ...s, lastUpdated: { ...s.lastUpdated, latest: new Date() } }
+        : s
+    );
+    setAll();
   };
-  const refreshAll = () => {
-    console.log("will refresh all data");
+
+  const move = (from: number, to: number) => {
+    const s = stations[from];
+    stations = stations.filter((s, i) => i !== from);
+    stations = [...stations.slice(0, to), s, ...stations.slice(to)];
+
+    setStations();
+  };
+
+  const moveUp = (idx: number) => {
+    if (idx === 0) return;
+
+    move(idx, idx - 1);
+  };
+
+  const moveDown = (idx: number) => {
+    if (idx === stations.length - 1) return;
+
+    move(idx, idx + 1);
   };
 
   return {
     subscribe: store.subscribe,
-    init,
     add,
     remove,
     removeAll,
