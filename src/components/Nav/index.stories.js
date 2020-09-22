@@ -1,7 +1,7 @@
 import Nav from "./index.svelte";
 
 export default {
-  title: "Nav",
+  title: "Common/Nav",
   component: Nav,
   argTypes: {
     toggleCity: { action: "onClick" },
