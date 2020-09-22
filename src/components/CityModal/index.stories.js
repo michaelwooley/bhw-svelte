@@ -3,20 +3,14 @@ import CityModal from "./index.svelte";
 export default {
   title: "Modals/City/CityModal",
   component: CityModal,
-  argTypes: {
-    onClose: { action: "onClose" },
-  },
+  argTypes: {},
 };
 
-const Template = ({ onClose, ...args }) => ({
+const Template = ({ ...args }) => ({
   Component: CityModal,
   props: args,
-  on: {
-    close: onClose,
-  },
+  on: {},
 });
 
 export const Main = Template.bind({});
-Main.args = {
-  isOpen: true,
-};
+Main.args = {};
