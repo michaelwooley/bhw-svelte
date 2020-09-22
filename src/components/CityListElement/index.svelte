@@ -1,39 +1,78 @@
 <script>
-  import type { IStationName } from "@app/common/data";
+  import moment from "moment";
+  import type { WeatherDataStoreStation } from "@app/stores/weather-data";
+  import { createEventDispatcher } from "svelte";
 
-  export let station: IStationName;
+  const dispatch = createEventDispatcher();
+
+  export let station: WeatherDataStoreStation;
+  export let idx: number;
+
+  let lastUpdatedFull: string;
+  $: lastUpdatedFull = moment(station.lastUpdated.latest).format(
+    "dddd, MMMM Do YYYY, h:mm:ss a"
+  );
+  $: lastUpdated = moment(station.lastUpdated.latest).fromNow();
 </script>
 
-<article class="media">
-  <figure class="media-left">
-    <p class="image is-64x64">
-      <img src="https://bulma.io/images/placeholders/128x128.png" />
-    </p>
-  </figure>
+<style>
+  .city-list-element {
+    cursor: move;
+    background-color: white;
+  }
+</style>
+
+<div class="media city-list-element" draggable="true">
   <div class="media-content">
     <div class="content">
-      <p>
-        <strong>John Smith</strong>
-        <small>@johnsmith</small>
-        <small>31m</small>
-        <br /> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare
-        magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem.
-        Etiam finibus odio quis feugiat facilisis.
-      </p>
-    </div>
-    <nav class="level is-mobile">
-      <div class="level-left">
-        <a class="level-item">
-          <span class="icon is-small"><i class="fas fa-reply" /></span>
-        </a>
-        <a class="level-item">
-          <span class="icon is-small"><i class="fas fa-retweet" /></span>
-        </a>
-        <a class="level-item">
-          <span class="icon is-small"><i class="fas fa-heart" /></span>
-        </a>
+      <div>
+        <strong>{station.station.city}</strong>
+        <small>{station.station.name}</small>
       </div>
-    </nav>
+      <div class="is-italic">
+        <small>Last updated <abbr title={lastUpdatedFull}><time
+              datetime={station.lastUpdated.latest.toString()}>{lastUpdated}</time></abbr></small>
+      </div>
+    </div>
   </div>
-  <div class="media-right"><button class="delete" /></div>
-</article>
+  <div class="media-right">
+    <div class="field is-horizontal">
+      <div class="field-body">
+        <div class="field has-addons">
+          <p class="control">
+            <button
+              class="button"
+              title="Move the city down on the list"
+              on:click={() => dispatch('move-down', { idx })}>
+              <span class="icon"><i class="fas fa-chevron-down" /></span>
+            </button>
+          </p>
+          <p class="control">
+            <button
+              class="button"
+              title="Move the city up on the list"
+              on:click={() => dispatch('move-up', { idx })}>
+              <span class="icon"><i class="fas fa-chevron-up" /></span>
+            </button>
+          </p>
+        </div>
+        <div class="control mr-3">
+          <button
+            class="button is-primary is-outlined"
+            title="Refresh this city's data"
+            on:click={() => dispatch('refresh', { station })}>
+            <span class="icon"><i class="fas fa-sync" /></span>
+          </button>
+        </div>
+        <div class="control">
+          <button
+            class="button is-danger is-outlined"
+            title="Remove the city"
+            on:click={() => dispatch('remove', { station })}>
+            <span class="icon"><i class="fas fa-trash" /></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
