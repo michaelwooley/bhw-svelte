@@ -25,7 +25,7 @@
 {#if isOpen}
   <div class="modal is-active" transition:fade={{ duration: 500 }}>
     <div class="modal-background" />
-    <slot>
+    <slot {handleClose}>
       <div class="modal-content">
         <div class="content">
           <h2>Sample modal content</h2>

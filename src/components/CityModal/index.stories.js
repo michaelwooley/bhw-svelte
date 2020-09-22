@@ -1,15 +1,15 @@
-import BaseModal from "./index.svelte";
+import CityModal from "./index.svelte";
 
 export default {
-  title: "Modals/BaseModal",
-  component: BaseModal,
+  title: "Modals/City/CityModal",
+  component: CityModal,
   argTypes: {
     onClose: { action: "onClose" },
   },
 };
 
 const Template = ({ onClose, ...args }) => ({
-  Component: BaseModal,
+  Component: CityModal,
   props: args,
   on: {
     close: onClose,
