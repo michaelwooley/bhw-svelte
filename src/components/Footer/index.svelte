@@ -3,13 +3,19 @@
 </script>
 
 <style>
+  footer.app-footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+  }
+
   ul {
     list-style: none;
     margin-left: 0;
   }
 </style>
 
-<footer class="footer">
+<footer class="footer app-footer">
   <div class="columns">
     <div class="column is-3">
       <h6 class="is-size-5">
@@ -60,7 +66,8 @@
         </li>
       </ul>
     </div>
-    <div class="column is-3">
+    <div class="column" />
+    <div class="column is-narrow">
       <h6 class="is-size-5"><strong>Share</strong></h6>
       <ul class="is-size-7">
         <li>
