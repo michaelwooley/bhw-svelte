@@ -3,7 +3,13 @@
   import type { WeatherDataStoreStation } from "@app/stores/weather-data";
   import { createEventDispatcher } from "svelte";
 
-  const dispatch = createEventDispatcher();
+  type DetailIdx = { idx: number };
+  const dispatch = createEventDispatcher<{
+    "move-down": DetailIdx;
+    "move-up": DetailIdx;
+    remove: { station: WeatherDataStoreStation };
+    refresh: { station: WeatherDataStoreStation };
+  }>();
 
   export let station: WeatherDataStoreStation;
   export let idx: number;
