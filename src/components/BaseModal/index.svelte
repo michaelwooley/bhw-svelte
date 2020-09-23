@@ -17,14 +17,14 @@
   }
 </script>
 
-<style>
-</style>
-
 <svelte:window on:keydown={handleKeyDown} />
 
 {#if isOpen}
   <div class="modal is-active" transition:fade={{ duration: 500 }}>
-    <div class="modal-background" />
+    <div
+      class="modal-background"
+      title="Click on the background to close"
+      on:click={handleClose} />
     <slot {handleClose}>
       <div class="modal-content">
         <div class="content">
