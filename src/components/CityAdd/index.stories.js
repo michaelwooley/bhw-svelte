@@ -2,7 +2,7 @@ import CitySearch from "./index.svelte";
 import { STATIONS } from "@app/common/data";
 
 export default {
-  title: "Modals/City/CitySearch",
+  title: "Modals/City/CityAdd",
   component: CitySearch,
   argTypes: {
     onAdd: { action: "on-add" },

@@ -1,5 +1,5 @@
 <script>
-  import CityAdd from "./CityAdd.svelte";
+  import CityAddElement from "./CityAddElement.svelte";
 
   import type { IStationName } from "@app/common/data";
 
@@ -24,6 +24,6 @@
   <!-- TODO Add search -->
 
   {#each stations as station}
-    <CityAdd {station} on:add />
+    <CityAddElement {station} on:add />
   {/each}
 </nav>
