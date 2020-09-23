@@ -4,6 +4,7 @@
   import type { IStationName } from "@app/common/data";
 
   export let stations: IStationName[];
+  export let classNames: string = "";
 </script>
 
 <style>
@@ -13,7 +14,7 @@
   }
 </style>
 
-<nav class="box pl-0 pr-0 main">
+<nav class={`box pl-0 pr-0 main ${classNames}`}>
   <div class="nav-block">
     <div class="is-size-5 has-text-weight-semibold">
       <span class="icon"> <i class="fas fa-plus" /> </span><span class="pl-3">Add

@@ -1,16 +1,16 @@
-import CitySearch from "./index.svelte";
+import CityAdd from "./index.svelte";
 import { STATIONS } from "@app/common/data";
 
 export default {
   title: "Modals/City/CityAdd",
-  component: CitySearch,
+  component: CityAdd,
   argTypes: {
     onAdd: { action: "on-add" },
   },
 };
 
 const Template = ({ onAdd, ...args }) => ({
-  Component: CitySearch,
+  Component: CityAdd,
   props: args,
   on: {
     add: onAdd,

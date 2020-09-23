@@ -1,5 +1,5 @@
 <script>
-  import CityListElement from "@app/components/CityListElement/index.svelte";
+  import CityListElement from "@app/components/CityList/CityListElement/index.svelte";
   import type { WeatherDataStoreStation } from "@app/stores/weather-data";
 
   export let stations: WeatherDataStoreStation[];
