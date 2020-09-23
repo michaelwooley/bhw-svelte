@@ -1,17 +1,13 @@
-import WeatherStore from "./index.svelte";
+import CityModal from "./view.svelte";
 
 export default {
-  title: "Demos/Weather Data Store",
-  component: WeatherStore,
-  argTypes: {
-    name: { control: "string" },
-  },
+  title: "Modals/City/CityModal_(container)",
+  component: CityModal,
 };
 
 const Template = ({ ...args }) => ({
-  Component: WeatherStore,
+  Component: CityModal,
   props: args,
-  on: {},
 });
 
 export const Main = Template.bind({});

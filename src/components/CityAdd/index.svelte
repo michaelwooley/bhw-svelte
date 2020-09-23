@@ -4,21 +4,19 @@
   import type { IStationName } from "@app/common/data";
 
   export let stations: IStationName[];
-  export let classNames: string = "";
 </script>
 
 <style>
-  div.nav-block {
-    border-bottom: 1px solid #ededed;
-    padding: 0.5rem 1rem;
+  nav.main {
+    height: 100%;
   }
 </style>
 
-<nav class={`box pl-0 pr-0 main ${classNames}`}>
+<nav class="box pl-0 pr-0 main">
   <div class="nav-block">
-    <div class="is-size-5 has-text-weight-semibold">
-      <span class="icon"> <i class="fas fa-plus" /> </span><span class="pl-3">Add
-        cities</span>
+    <div class="title is-5 border-bottom pr-5 pl-5 pb-2">
+      <span class="icon"> <i class="fas fa-plus" /> </span>
+      <span class="pl-3">Add cities</span>
     </div>
   </div>
 
