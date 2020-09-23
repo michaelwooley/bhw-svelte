@@ -15,7 +15,7 @@
 
 <nav class="box pl-0 pr-0 main">
   <div class="nav-block">
-    <div class="is-size-5 has-text-weight-semibold has-text-primary">
+    <div class="is-size-5 has-text-weight-semibold">
       <span class="icon"> <i class="fas fa-plus" /> </span><span class="pl-3">Add
         cities</span>
     </div>
@@ -24,6 +24,6 @@
   <!-- TODO Add search -->
 
   {#each stations as station}
-    <CityAdd {station} />
+    <CityAdd {station} on:add />
   {/each}
 </nav>
