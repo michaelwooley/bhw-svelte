@@ -4,13 +4,17 @@ import { STATIONS } from "@app/common/data";
 export default {
   title: "Modals/City/CitySearch",
   component: CitySearch,
-  argTypes: {},
+  argTypes: {
+    onAdd: { action: "on-add" },
+  },
 };
 
-const Template = ({ ...args }) => ({
+const Template = ({ onAdd, ...args }) => ({
   Component: CitySearch,
   props: args,
-  on: {},
+  on: {
+    add: onAdd,
+  },
 });
 
 export const Main = Template.bind({});
