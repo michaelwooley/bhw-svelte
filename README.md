@@ -28,3 +28,8 @@ In order to work through tests, typescript, and, compilation need to update thre
 4. `.storybook/main.js` in `alias`
 
 Each alias field has its own special way to do things. Follow what is already there.
+
+# Links
+
+- [bulma tooltips](https://demo.creativebulma.net/components/tooltip/1.2/)
+- [bulma](bulma.io)

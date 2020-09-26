@@ -79,7 +79,7 @@ function createWeatherData() {
       throw new Error(`Station ${station.id} is already in set.`);
     }
 
-    latest[id] = await weatherLatest(station.id);
+    // latest[id] = await weatherLatest(station.id);
     stations = stations.concat([
       {
         id,
@@ -105,13 +105,14 @@ function createWeatherData() {
 
   const _refresh = async (id: string): Promise<boolean> => {
     if (
+      !latest[id] ||
       new Date().valueOf() -
         new Date(latest[id].properties.timestamp).valueOf() <
-      WEATHER_API_DATA_INTERVAL
+        WEATHER_API_DATA_INTERVAL
     )
       return false;
 
-    latest[id] = await weatherLatest(id);
+    // latest[id] = await weatherLatest(id);
     return true;
   };
 
