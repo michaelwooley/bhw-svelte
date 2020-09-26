@@ -8,7 +8,10 @@
   <div class="container">
     {#each $weatherDataStore.stations as station, idx (station.id)}
       <div animate:flip>
-        <CityBlock {station} {idx} />
+        <CityBlock
+          {station}
+          {idx}
+          latest={$weatherDataStore.latest[station.id]} />
       </div>
     {/each}
   </div>
