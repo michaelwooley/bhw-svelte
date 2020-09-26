@@ -10,7 +10,7 @@
 <style>
 </style>
 
-<div class="dropdown is-hoverable">
+<div class="dropdown is-hoverable is-right">
   <div class="dropdown-trigger">
     <button
       class="button is-white"

@@ -1,4 +1,4 @@
-import CityBlockDropdown from "./index.svelte";
+import CityBlockDropdown from "./view.svelte";
 
 export default {
   title: "City/CityBlockDropdown",
