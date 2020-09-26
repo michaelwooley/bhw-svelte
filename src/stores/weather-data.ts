@@ -79,7 +79,7 @@ function createWeatherData() {
       throw new Error(`Station ${station.id} is already in set.`);
     }
 
-    // latest[id] = await weatherLatest(station.id);
+    latest[id] = await weatherLatest(station.id);
     stations = stations.concat([
       {
         id,
@@ -112,7 +112,7 @@ function createWeatherData() {
     )
       return false;
 
-    // latest[id] = await weatherLatest(id);
+    latest[id] = await weatherLatest(id);
     return true;
   };
 

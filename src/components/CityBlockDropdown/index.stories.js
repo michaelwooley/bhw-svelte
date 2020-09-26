@@ -1,11 +1,11 @@
-import CityBlockDropdown from "./index.svelte";
+import CityBlockDropdown from "./view.svelte";
 
 export default {
   title: "City/CityBlockDropdown",
   component: CityBlockDropdown,
   argTypes: {
-    isRight: { control: "boolean" },
-    disabled: { control: "boolean" },
+    isFirst: { control: "boolean" },
+    isLast: { control: "boolean" },
     handleRefresh: { action: "refresh" },
     handleMoveUp: { action: "move-up" },
     handleMoveDown: { action: "move-down" },
@@ -32,6 +32,6 @@ const Template = ({
 
 export const Main = Template.bind({});
 Main.args = {
-  isRight: false,
-  disabled: false,
+  isFirst: false,
+  isLast: false,
 };

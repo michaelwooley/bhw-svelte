@@ -18,11 +18,15 @@
 </style>
 
 <div class="weather-stat panel-block is-selectable" title={description || name}>
-  <span class="panel-icon"> <i class={`${icon} is-small`} /> </span>
+  <span class="panel-icon">
+    <!--  -->
+    <i class={`${icon} is-small`} />
+  </span>
   <span class="has-text-weight-semibold">
     <abbr title={description || name}>{name}</abbr>
   </span>
-  <span class="is-pulled-right">{value}
+  <span
+    class="is-pulled-right">{typeof value == 'number' ? value.toPrecision(2) : value}
     <span class="is-size-7 is-italic">
       <abbr title={unit}> {unitAbbrev} </abbr>
     </span>

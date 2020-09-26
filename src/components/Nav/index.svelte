@@ -10,8 +10,14 @@
   }
 </script>
 
+<style>
+  nav.navbar {
+    background-color: #fafafa;
+  }
+</style>
+
 <nav
-  class="navbar has-background-light"
+  class="navbar border-bottom"
   role="navigation"
   aria-label="main navigation">
   <div class="navbar-brand">
