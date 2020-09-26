@@ -1,30 +1,15 @@
-<script lang="ts">
+<script>
   import CityBlockDropdown from "@app/components/CityBlockDropdown/index.svelte";
+  import { weatherDataStore } from "@app/stores";
 
   export let id: string;
-
-  // TODO CityBlockDropdown actions
-  function handleRefresh(): void {
-    alert(`Will refresh ${id}`);
-  }
-
-  function handleMoveDown(): void {
-    alert(`Will move up ${id}`);
-  }
-
-  function handleMoveUp(): void {
-    alert(`Will move down ${id}`);
-  }
-
-  function handleRemove(): void {
-    alert(`Will remove ${id}`);
-  }
+  export let idx: number;
 </script>
 
 <CityBlockDropdown
-  disabled={true}
+  disabled={false}
   isRight={true}
-  on:refresh={handleRefresh}
-  on:move-up={handleMoveUp}
-  on:move-down={handleMoveDown}
-  on:remove={handleRemove} />
+  on:refresh={() => weatherDataStore.refresh(id)}
+  on:move-up={() => weatherDataStore.moveUp(idx)}
+  on:move-down={() => weatherDataStore.moveDown(idx)}
+  on:remove={() => weatherDataStore.remove(id)} />
