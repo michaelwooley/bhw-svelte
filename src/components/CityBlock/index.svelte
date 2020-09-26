@@ -3,7 +3,7 @@
   export let name: string;
 </script>
 
-<div class="card" {id}>
+<div class="card mb-5" {id}>
   <header class="card-header">
     <p class="card-header-title">{name}</p>
     <div class="card-header-icon">
