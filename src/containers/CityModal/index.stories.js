@@ -1,7 +1,7 @@
 import CityModal from "./view.svelte";
 
 export default {
-  title: "Modals/City/CityModal_(container)",
+  title: "Modals/City/CityModal (container)",
   component: CityModal,
 };
 
