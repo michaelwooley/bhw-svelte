@@ -18,10 +18,7 @@ export const convertKph2Mph = (s: number) => s * 0.6213712;
  * @param domain
  * @param range
  */
-export default function linearScale(
-  domain: [number, number],
-  range: [number, number]
-) {
+export function linearScale(domain: [number, number], range: [number, number]) {
   const d0 = domain[0];
   const r0 = range[0];
   const m = (range[1] - r0) / (domain[1] - d0);
