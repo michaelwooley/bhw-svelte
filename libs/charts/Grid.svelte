@@ -1,11 +1,15 @@
 <script>
   import { getChartContext } from "./Chart.svelte";
+  import BodyGroup from "./common/BodyGroup.svelte";
   import { getTicks } from "./utils";
 
   export let count: number = 5;
   export let ticks: number[] | undefined = undefined;
   export let vertical: boolean = false;
   export let line: boolean = true;
+  export let stroke: string = "#ccc";
+  export let strokeWidth: number = 0.25;
+  export let dashed: boolean = true;
 
   const { x1, y1, x2, y2, xScale, yScale } = getChartContext();
   const VERTICAL = {};
@@ -19,53 +23,34 @@
       ? getTicks($y1, $y2, count)
       : getTicks($x1, $x2, count));
 
-  $: style =
-    orientation === HORIZONTAL
-      ? (n: number) => `width: 100%; height: 0; top: ${$yScale(n)}%`
-      : (n: number) => `width: 0; height: 100%; left: ${$xScale(n)}%`;
+  $: dashArray = dashed ? "1 1" : "none";
+
+  // $: style =
+  //   orientation === HORIZONTAL
+  //     ? (n: number) => `width: 100%; height: 0; top: ${$yScale(n)}%`
+  //     : (n: number) => `width: 0; height: 100%; left: ${$xScale(n)}%`;
 </script>
 
 <style>
-  .pancake-grid-item {
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
-
-  .grid-line {
-    position: relative;
-    display: block;
-  }
-
-  .grid-line span {
-    position: absolute;
-    left: 0;
-    bottom: 2px;
-    font-family: sans-serif;
-    font-size: 14px;
-    color: #999;
-  }
-
-  .horizontal {
-    width: calc(100% + 2em);
-    left: -2em;
-  }
-
-  .line.vertical {
-    height: 100%;
-    bottom: -2em;
-  }
-
-  .line.horizontal {
-    border-bottom: 1px dashed #ccc;
-  }
-
-  .line.vertical {
-    border-left: 1px dashed #ccc;
-  }
 </style>
 
-<div class="pancake-grid">
+<BodyGroup>
+  <g
+    class="grid"
+    {stroke}
+    stroke-width={`${strokeWidth}px`}
+    stroke-dasharray={dashArray}>
+    {#each _ticks as tick, i}
+      {#if vertical}
+        <line y1="0" y2="100" x1={$xScale(tick)} x2={$xScale(tick)} />
+      {:else}
+        <line y1={$yScale(tick)} y2={$yScale(tick)} x1="0" x2="100" />
+      {/if}
+    {/each}
+  </g>
+</BodyGroup>
+
+<!-- <div class="pancake-grid">
   {#each _ticks as tick, i}
     <div class="pancake-grid-item" style={style(tick)}>
       <div
@@ -81,4 +66,4 @@
       </div>
     </div>
   {/each}
-</div>
+</div> -->

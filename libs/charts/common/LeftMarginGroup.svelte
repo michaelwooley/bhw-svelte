@@ -5,9 +5,12 @@
   const { margins } = getChartContext();
   $: scaleX = (VIEW_SCALE - ($margins.left + $margins.right)) / VIEW_SCALE;
   $: scaleY = (VIEW_SCALE - ($margins.top + $margins.bottom)) / VIEW_SCALE;
-  $: transform = `translate(${$margins.left} ${$margins.top}) scale(${scaleX} ${scaleY})`;
+  $: transform = `translate(0 ${$margins.top}) scale(${scaleX} ${scaleY})`;
 </script>
 
-<g class="body chart-group" vector-effect="non-scaling-stroke">
+<g
+  {transform}
+  class="margin left chart-group"
+  vector-effect="non-scaling-stroke">
   <slot />
 </g>
