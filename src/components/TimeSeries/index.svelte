@@ -1,4 +1,4 @@
-<script>
+<!--<script>
   import type { WeatherApiStationObservations } from "src/types/weather-api";
 
   export let data: WeatherApiStationObservations;
@@ -9,9 +9,7 @@
   let y2 = 2019; // -Infinity;
 
   console.log(data);
-</script>
-
-<Chart {x1} {x2} {y1} {y2}>
+</script><Chart {x1} {x2} {y1} {y2}>
   <Grid horizontal count={5} let:value>
     <div class="grid-line horizontal"><span>{value}</span></div>
   </Grid>
@@ -34,5 +32,6 @@
     </Point>
   {/if} -->
 
-  <!-- <Quadtree data={points} bind:closest/> -->
-</Chart>
+<!-- <Quadtree data={points} bind:closest/> -->
+<!-- </Chart> -->
+-->

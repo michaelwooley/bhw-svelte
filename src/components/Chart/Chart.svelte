@@ -1,11 +1,12 @@
 <script context="module">
+  import { linearScale } from "./utils";
   import { getContext, setContext } from "svelte";
   import { derived, writable } from "svelte/store";
-  import { linearScale } from "@app/common/utils";
+  import type { ChartContext } from "./types";
 
   const key = {};
   export function getChartContext() {
-    return getContext(key);
+    return getContext<ChartContext>(key);
   }
 </script>
 
@@ -15,8 +16,6 @@
   export let x2: number = 1;
   export let y2: number = 1;
   export let clip: boolean = false;
-
-  // const nullPointer = { x: -1, y: -1, left: -1, top: -1 };
 
   let chart: HTMLDivElement;
   const _x1 = writable<number>(x1);
@@ -32,14 +31,14 @@
     top: number;
   } | null>(null);
 
-  const xScale = derived([_x1, _x2], ([$x1, $x2]) => {
-    return linearScale([$x1, $x2], [0, 100]);
-  });
-  const yScale = derived([_y1, _y2], ([$y1, $y2]) => {
-    return linearScale([$y1, $y2], [100, 0]);
-  });
-  const xScaleInverse = derived(xScale, ($x_scale) => $x_scale.inverse());
-  const yScaleInverse = derived(yScale, ($y_scale) => $y_scale.inverse());
+  const xScale = derived([_x1, _x2], ([$x1, $x2]) =>
+    linearScale([$x1, $x2], [0, 100])
+  );
+  const yScale = derived([_y1, _y2], ([$y1, $y2]) =>
+    linearScale([$y1, $y2], [100, 0])
+  );
+  const xScaleInverse = derived(xScale, ($xScale) => $xScale.inverse());
+  const yScaleInverse = derived(yScale, ($yScale) => $yScale.inverse());
 
   $: _x1.set(x1);
   $: _y1.set(y1);
@@ -63,7 +62,7 @@
     pointer.set(null);
   };
 
-  setContext(key, {
+  setContext<ChartContext>(key, {
     x1: _x1,
     y1: _y1,
     x2: _x2,
