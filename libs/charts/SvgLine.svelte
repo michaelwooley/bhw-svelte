@@ -1,5 +1,6 @@
 <script>
   import { getChartContext } from "./Chart.svelte";
+  import BodyGroup from "./common/BodyGroup.svelte";
   import type { DataRecord } from "./types";
   import { propertyAccessor } from "./utils";
   const { xScale, yScale } = getChartContext();
@@ -25,9 +26,6 @@
   }
 </style>
 
-<path
-  vector-effect="non-scaling-stroke"
-  class="data"
-  stroke-width={`${strokeWidth}px`}
-  {stroke}
-  {d} />
+<BodyGroup>
+  <path class="data" stroke-width={`${strokeWidth}px`} {stroke} {d} />
+</BodyGroup>

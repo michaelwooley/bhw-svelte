@@ -13,7 +13,7 @@ export default {
       },
     },
     height: {
-      control: { type: "range", min: 10, max: 1000, step: 1, value: 350 },
+      control: { type: "range", min: 10, max: 1000, step: 1 },
     },
   },
 };

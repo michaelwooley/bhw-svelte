@@ -84,9 +84,18 @@
     display: block;
     width: 100%;
     height: 100%;
+    background-color: rgba(10, 190, 200, 0.12);
   }
+
   .clip {
     overflow: hidden;
+  }
+
+  svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
   }
 </style>
 
@@ -99,5 +108,12 @@
   on:mousemove={handleMousemove}
   on:mouseleave={handleMouseleave}
   class:clip>
-  <slot />
+  <svg
+    height={$height}
+    width={$width}
+    viewBox="0 0 100 100"
+    preserveAspectRatio="none"
+    class:clip>
+    <slot />
+  </svg>
 </div>
