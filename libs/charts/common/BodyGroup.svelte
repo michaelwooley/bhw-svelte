@@ -1,10 +1,11 @@
 <script>
-  // TODO Make margin configurable
-  let margin = 10;
+  import { getChartContext } from "../Chart.svelte";
+  import { VIEW_SCALE } from "../constants";
 
-  $: transform = `translate(${margin} 0) scale(${(100 - margin) / 100} ${
-    (100 - margin) / 100
-  })`;
+  const { margins } = getChartContext();
+  $: scaleX = (VIEW_SCALE - ($margins.left + $margins.right)) / VIEW_SCALE;
+  $: scaleY = (VIEW_SCALE - ($margins.top + $margins.bottom)) / VIEW_SCALE;
+  $: transform = `translate(${$margins.left} ${$margins.top}) scale(${scaleX} ${scaleY})`;
 </script>
 
 <g {transform} class="body-group" vector-effect="non-scaling-stroke">

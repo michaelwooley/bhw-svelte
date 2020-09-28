@@ -1,6 +1,13 @@
 import type { Writable, Readable } from "svelte/store";
 import type { LinearScale } from "./utils";
 
+export type Margins = {
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+};
+
 export type ChartContext = {
   x1: Writable<number>;
   y1: Writable<number>;
@@ -19,6 +26,7 @@ export type ChartContext = {
   width: Writable<number>;
   height: Writable<number>;
   clip: boolean;
+  margins: Writable<Margins>;
 };
 
 /**

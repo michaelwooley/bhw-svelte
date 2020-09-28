@@ -1,8 +1,9 @@
 <script context="module">
   import { getContext, setContext } from "svelte";
   import { derived, writable } from "svelte/store";
-  import type { ChartContext } from "./types";
+  import type { ChartContext, Margins } from "./types";
   import { linearScale } from "./utils";
+  import { VIEW_SCALE } from "./constants";
 
   const key = {};
   export function getChartContext() {
@@ -16,12 +17,15 @@
   export let x2: number = 1;
   export let y2: number = 1;
   export let clip: boolean = false;
+  export let margins: Margins = { top: 0, bottom: 10, left: 10, right: 10 };
 
   let chart: HTMLDivElement;
+  const viewBox = `0 0 ${VIEW_SCALE} ${VIEW_SCALE}`;
   const _x1 = writable<number>(x1);
   const _y1 = writable<number>(y1);
   const _x2 = writable<number>(x2);
   const _y2 = writable<number>(y2);
+  const _margins = writable<Margins>(margins);
   const width = writable<number>(250);
   const height = writable<number>(250);
   const pointer = writable<{
@@ -32,10 +36,10 @@
   } | null>(null);
 
   const xScale = derived([_x1, _x2], ([$x1, $x2]) =>
-    linearScale([$x1, $x2], [0, 100])
+    linearScale([$x1, $x2], [0, VIEW_SCALE])
   );
   const yScale = derived([_y1, _y2], ([$y1, $y2]) =>
-    linearScale([$y1, $y2], [100, 0])
+    linearScale([$y1, $y2], [VIEW_SCALE, 0])
   );
   const xScaleInverse = derived(xScale, ($xScale) => $xScale.inverse());
   const yScaleInverse = derived(yScale, ($yScale) => $yScale.inverse());
@@ -44,6 +48,15 @@
   $: _y1.set(y1);
   $: _x2.set(x2);
   $: _y2.set(y2);
+  $: _margins.set(margins);
+  $: if (
+    margins.top + margins.bottom > VIEW_SCALE ||
+    margins.left + margins.right > VIEW_SCALE
+  ) {
+    throw new Error(
+      `Sum of margins on top/bottom or left/right must be <= ${VIEW_SCALE}`
+    );
+  }
 
   const handleMousemove = <
     T extends Event & { clientX: number; clientY: number }
@@ -75,6 +88,7 @@
     width,
     height,
     clip,
+    margins: _margins,
   });
 </script>
 
@@ -111,7 +125,7 @@
   <svg
     height={$height}
     width={$width}
-    viewBox="0 0 100 100"
+    {viewBox}
     preserveAspectRatio="none"
     class:clip>
     <slot />
