@@ -26,9 +26,11 @@
       "@app/stores": ["src/stores"],
       "@app/stores/*": ["src/stores/*"],
       "@app/common": ["src/common"],
-      "@app/common/*": ["src/common/*"]
+      "@app/common/*": ["src/common/*"],
+      "@libs/charts": ["libs/charts"],
+      "@libs/charts/*": ["libs/charts/*"]
     }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "libs/Chart"],
   "exclude": ["node_modules/*", "__sapper__/*", "public/*"]
 }

@@ -1,8 +1,8 @@
 <script context="module">
-  import { linearScale } from "./utils";
   import { getContext, setContext } from "svelte";
   import { derived, writable } from "svelte/store";
   import type { ChartContext } from "./types";
+  import { linearScale } from "./utils";
 
   const key = {};
   export function getChartContext() {
@@ -90,6 +90,7 @@
   }
 </style>
 
+<!-- NOTE: Does not like that using store rather than variable w/ bind. -->
 <div
   class="pancake-chart"
   bind:this={chart}

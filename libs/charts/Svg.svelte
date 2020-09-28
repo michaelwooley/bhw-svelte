@@ -16,9 +16,9 @@
     overflow: hidden;
   }
 
-  svg :global(*) {
+  /* svg :global(*) {
     vector-effect: non-scaling-stroke;
-  }
+  } */
 </style>
 
 <svg viewBox="0 0 100 100" preserveAspectRatio="none" class:clip>

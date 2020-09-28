@@ -5,6 +5,7 @@ const moduleResolver = [
   {
     alias: {
       "^@app/(.+)": "./src/\\1",
+      "^@lib/(.+)": "./libs/\\1",
     },
   },
 ];
