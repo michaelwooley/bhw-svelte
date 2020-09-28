@@ -16,6 +16,11 @@
     overflow: hidden;
   }
 
+  /* 
+    NOTE Skip this here because not recognized by parser. See discussion in [1] for more info
+  
+    [1] https://dev.to/richharris/a-new-technique-for-making-responsive-javascript-free-charts-gmp
+   */
   /* svg :global(*) {
     vector-effect: non-scaling-stroke;
   } */

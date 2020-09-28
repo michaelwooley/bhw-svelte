@@ -4,8 +4,17 @@ export default {
   title: "Charts/Line chart",
   component: LineChart,
   argTypes: {
-    width: { control: { type: "range", min: 10, max: 1000, step: 1 } },
-    height: { control: { type: "range", min: 10, max: 1000, step: 1 } },
+    width: {
+      control: {
+        type: "range",
+        min: 10,
+        max: 1000,
+        step: 1,
+      },
+    },
+    height: {
+      control: { type: "range", min: 10, max: 1000, step: 1, value: 350 },
+    },
   },
 };
 
@@ -22,4 +31,7 @@ const Template = ({
 });
 
 export const Main = Template.bind({});
-Main.args = {};
+Main.args = {
+  width: 450,
+  height: 350,
+};

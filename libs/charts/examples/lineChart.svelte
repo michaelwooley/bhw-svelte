@@ -60,41 +60,14 @@
     padding: 3em 0 2em 2em;
     margin: 0 0 36px 0;
   }
-
-  input {
-    font-size: inherit;
-    font-family: inherit;
-    padding: 0.5em;
-  }
-
-  path.data {
-    stroke: rgba(0, 0, 0, 0.2);
-    stroke-linejoin: round;
-    stroke-linecap: round;
-    stroke-width: 1px;
-    fill: none;
-  }
 </style>
-
-<input placeholder="Type to filter" bind:value={filter} />
 
 <div class="chart" style={chartStyle}>
   <Chart {x1} {x2} {y1} {y2}>
     <Svg>
       {#each filtered as country}
-        <SvgLine x="x" y="y" data={country.data} let:d>
-          <path class="data" {d} />
-        </SvgLine>
+        <SvgLine x="x" y="y" data={country.data} />
       {/each}
     </Svg>
   </Chart>
 </div>
-
-<hr />
-<p>
-  Source: <a
-    href="https://data.worldbank.org/indicator/SP.DYN.LE00.IN?end=2017&start=1960">The
-    World Bank</a>. Based on <a
-    href="http://projects.flowingdata.com/life-expectancy/">Life Expectancy by
-    Nathan Yau</a>.
-</p>
