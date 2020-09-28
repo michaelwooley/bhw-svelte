@@ -2,6 +2,7 @@
   import Chart from "../Chart.svelte";
   import Svg from "../Svg.svelte";
   import SvgLine from "../SvgLine.svelte";
+  import Grid from "../Grid.svelte";
 
   import { countries, years } from "./countryData";
 
@@ -64,9 +65,14 @@
 
 <div class="chart" style={chartStyle}>
   <Chart {x1} {x2} {y1} {y2}>
+    <Grid line count={5} let:value />
+    <Grid vertical line count={5} let:value />
+
     <Svg>
-      {#each filtered as country}
-        <SvgLine x="x" y="y" data={country.data} />
+      {#each filtered as country, i}
+        {#if i < 3}
+          <SvgLine x="x" y="y" data={country.data} />
+        {/if}
       {/each}
     </Svg>
   </Chart>
