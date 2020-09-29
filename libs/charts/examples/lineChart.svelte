@@ -65,7 +65,7 @@
 
 <div class="chart" style={chartStyle}>
   <Chart {x1} {x2} {y1} {y2}>
-    <!-- <Grid line count={5} let:value /> -->
+    <Grid line count={5} let:value />
     <Grid vertical line count={5} let:value />
 
     <g slot="svg">
