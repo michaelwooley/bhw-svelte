@@ -12,6 +12,8 @@
 </script>
 
 <script>
+  import Svg from "./Svg.svelte";
+
   export let x1: number = 0;
   export let y1: number = 0;
   export let x2: number = 1;
@@ -20,7 +22,6 @@
   export let margins: Margins = { top: 0, bottom: 50, left: 50, right: 0 };
 
   let chart: HTMLDivElement;
-  const viewBox = `0 0 ${VIEW_SCALE} ${VIEW_SCALE}`;
   const _x1 = writable<number>(x1);
   const _y1 = writable<number>(y1);
   const _x2 = writable<number>(x2);
@@ -58,9 +59,9 @@
     );
   }
 
-  $: chartStyle = `
-  grid-template-columns: ${margins.left}px auto ${margins.right}px;
-  grid-template-rows: ${margins.top}px auto ${margins.bottom}px;
+  $: childStyle = `
+  height: ${$height}px;
+  width: ${$width}px;
   `;
 
   const handleMousemove = <
@@ -98,95 +99,49 @@
 </script>
 
 <style>
-  .pancake-chart {
+  .chart {
     position: relative;
-    display: grid;
     width: 100%;
     height: 100%;
-    background-color: rgba(10, 190, 200, 0.05);
-    grid-template-areas:
-      ".     top   ."
-      "left  main  right"
-      ".    bottom .";
+    border: 1px solid aqua;
   }
 
   .clip {
     overflow: hidden;
   }
 
-  svg {
+  .overlapping {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-    grid-area: svg;
+    z-index: 100;
   }
 
-  .margin.left {
-    grid-area: left;
-    background-color: aqua;
+  .overlapping.non-svg {
+    z-index: 100;
   }
 
-  .margin.right {
-    grid-area: right;
-    background-color: blue;
-  }
-
-  .margin.top {
-    grid-area: top;
-    background-color: crimson;
-  }
-
-  .margin.bottom {
-    grid-area: bottom;
-    background-color: purple;
-  }
-
-  .main {
-    grid-area: main;
+  .overlapping.svg {
+    z-index: 101;
   }
 </style>
 
 <!-- NOTE: Does not like that using store rather than variable w/ bind. -->
 <div
-  class="pancake-chart"
-  style={chartStyle}
+  class="chart"
   bind:this={chart}
   bind:clientWidth={$width}
   bind:clientHeight={$height}
   on:mousemove={handleMousemove}
   on:mouseleave={handleMouseleave}
   class:clip>
-  <div class="svg">
-    <svg
-      height={$height}
-      width={$width}
-      {viewBox}
-      preserveAspectRatio="none"
-      class:clip>
-      <slot />
-    </svg>
+  <div class="non-svg overlapping" style={childStyle}>
+    <slot>
+      <div
+        style={`width:100%; height:100%;background-color: rgba(205, 220, 57, 0.3); border: 2px solid rgba(255, 152, 0, 0.7);`} />
+    </slot>
   </div>
-  <div class="non-svg">
-    <div
-      style={`width:100%; height:100%;display:inline-block;background-color: orange;`} />
+  <div class="svg overlapping" style={childStyle}>
+    <Svg>
+      <slot name="svg" />
+    </Svg>
   </div>
-  <!-- <div class="main">
-    <div
-      style={`width:100%; height:100%;display:inline-block;background-color: orange;`} />
-    <div style="display:inline;background-color:rgba(30,120,12,0.5);">
-      <svg
-        height={$height}
-        width={$width}
-        {viewBox}
-        preserveAspectRatio="none"
-        class:clip>
-        <slot />
-      </svg>
-    </div>
-  </div>
-  <div class="margin left" />
-  <div class="margin right" />
-  <div class="margin top" />
-  <div class="margin bottom" /> -->
 </div>

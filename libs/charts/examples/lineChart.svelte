@@ -1,8 +1,9 @@
 <script>
   import Chart from "../Chart.svelte";
-  import Svg from "../Svg.svelte";
+  // import Svg from "../Svg.svelte";
   import SvgLine from "../SvgLine.svelte";
   import Grid from "../Grid.svelte";
+  import BodyGroup from "../common/BodyGroup.svelte";
 
   import { countries, years } from "./countryData";
 
@@ -58,21 +59,24 @@
 
 <style>
   .chart {
-    border: 1px solid aqua;
+    /* border: 1px solid aqua; */
   }
 </style>
 
 <div class="chart" style={chartStyle}>
   <Chart {x1} {x2} {y1} {y2}>
     <!-- <Grid line count={5} let:value /> -->
-    <!-- <Grid vertical line count={5} let:value /> -->
+    <Grid vertical line count={5} let:value />
 
-    <!-- <Svg> -->
-    {#each filtered as country, i}
-      {#if i < 3}
-        <SvgLine x="x" y="y" data={country.data} />
-      {/if}
-    {/each}
-    <!-- </Svg> -->
+    <g slot="svg">
+      {#each filtered as country, i}
+        {#if i < 3}
+          <SvgLine x="x" y="y" data={country.data} />
+        {/if}
+      {/each}
+      <!-- <BodyGroup>
+        <rect height="100" width="100" stroke="black" fill="none" />
+      </BodyGroup> -->
+    </g>
   </Chart>
 </div>

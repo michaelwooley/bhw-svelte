@@ -1,7 +1,9 @@
 <script>
   import { getChartContext } from "./Chart.svelte";
+  import { VIEW_SCALE } from "./constants";
 
-  const { clip } = getChartContext();
+  const { clip, height, width } = getChartContext();
+  const viewBox = `0 0 ${VIEW_SCALE} ${VIEW_SCALE}`;
 </script>
 
 <style>
@@ -10,6 +12,7 @@
     width: 100%;
     height: 100%;
     overflow: visible;
+    fill: none;
   }
 
   .clip {
@@ -26,6 +29,11 @@
   } */
 </style>
 
-<svg viewBox="0 0 100 100" preserveAspectRatio="none" class:clip>
+<svg
+  height={$height}
+  width={$width}
+  {viewBox}
+  preserveAspectRatio="none"
+  class:clip>
   <slot />
 </svg>

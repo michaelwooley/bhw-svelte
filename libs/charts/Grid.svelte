@@ -1,17 +1,27 @@
 <script>
   import { getChartContext } from "./Chart.svelte";
-  import BodyGroup from "./common/BodyGroup.svelte";
+  import BodyDiv from "./common/BodyDiv.svelte";
   import { getTicks } from "./utils";
 
   export let count: number = 5;
   export let ticks: number[] | undefined = undefined;
   export let vertical: boolean = false;
   export let line: boolean = true;
-  export let stroke: string = "#ccc";
-  export let strokeWidth: number = 0.25;
-  export let dashed: boolean = true;
+  // export let stroke: string = "#ccc";
+  // export let strokeWidth: number = 0.25;
+  // export let dashed: boolean = true;
 
-  const { x1, y1, x2, y2, xScale, yScale } = getChartContext();
+  const {
+    x1,
+    y1,
+    x2,
+    y2,
+    xScale,
+    yScale,
+    width,
+    height,
+    margins,
+  } = getChartContext();
   const VERTICAL = {};
   const HORIZONTAL = {};
 
@@ -20,10 +30,10 @@
   $: _ticks =
     ticks ||
     (orientation === HORIZONTAL
-      ? getTicks($y1, $y2, count)
-      : getTicks($x1, $x2, count));
+      ? getTicks(0, $height - $margins.top, count)
+      : getTicks(0, $width - $margins.right, count));
 
-  $: dashArray = dashed ? "1 1" : "none";
+  // $: dashArray = dashed ? "1 1" : "none";
 
   // $: style =
   //   orientation === HORIZONTAL
@@ -32,23 +42,30 @@
 </script>
 
 <style>
+  .line {
+    border-right: 1px dashed #ccc;
+  }
+
+  .grid-item {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
 </style>
 
-<BodyGroup>
-  <g
-    class="grid"
-    {stroke}
-    stroke-width={`${strokeWidth}px`}
-    stroke-dasharray={dashArray}>
-    {#each _ticks as tick, i}
-      {#if vertical}
-        <line y1="0" y2="100" x1={$xScale(tick)} x2={$xScale(tick)} />
-      {:else}
-        <line y1={$yScale(tick)} y2={$yScale(tick)} x1="0" x2="100" />
-      {/if}
-    {/each}
-  </g>
-</BodyGroup>
+<BodyDiv>
+  {#each _ticks as tick, i}
+    {#if vertical}
+      <div
+        class="grid-item"
+        class:line
+        style={`height:100%; width:0;left: ${tick}px`} />
+    {:else}
+      <div>none</div>
+      <!-- <line y1={$yScale(tick)} y2={$yScale(tick)} x1="0" x2="100" /> -->
+    {/if}
+  {/each}
+</BodyDiv>
 
 <!-- <div class="pancake-grid">
   {#each _ticks as tick, i}
