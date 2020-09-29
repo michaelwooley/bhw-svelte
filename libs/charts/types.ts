@@ -17,6 +17,8 @@ export type ChartContext = {
   yScale: Readable<LinearScale>;
   xScaleInverse: Readable<LinearScale>;
   yScaleInverse: Readable<LinearScale>;
+  xScaleMargins: Readable<LinearScale>;
+  yScaleMargins: Readable<LinearScale>;
   pointer: Writable<{
     x: number;
     y: number;

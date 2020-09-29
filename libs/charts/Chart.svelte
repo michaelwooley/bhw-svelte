@@ -44,6 +44,12 @@
   );
   const xScaleInverse = derived(xScale, ($xScale) => $xScale.inverse());
   const yScaleInverse = derived(yScale, ($yScale) => $yScale.inverse());
+  const xScaleMargins = derived(width, ($width) =>
+    linearScale([0, $width], [0, VIEW_SCALE])
+  );
+  const yScaleMargins = derived(height, ($height) =>
+    linearScale([0, $height], [0, VIEW_SCALE])
+  );
 
   $: _x1.set(x1);
   $: _y1.set(y1);
@@ -51,11 +57,11 @@
   $: _y2.set(y2);
   $: _margins.set(margins);
   $: if (
-    margins.top + margins.bottom > VIEW_SCALE ||
-    margins.left + margins.right > VIEW_SCALE
+    margins.top + margins.bottom > $height ||
+    margins.left + margins.right > $width
   ) {
     throw new Error(
-      `Sum of margins on top/bottom or left/right must be <= ${VIEW_SCALE}`
+      `Sum of margins on top/bottom or left/right must be weakly less than dimensions (${$width}, ${height})`
     );
   }
 
@@ -90,6 +96,8 @@
     yScale,
     xScaleInverse,
     yScaleInverse,
+    xScaleMargins,
+    yScaleMargins,
     pointer,
     width,
     height,
