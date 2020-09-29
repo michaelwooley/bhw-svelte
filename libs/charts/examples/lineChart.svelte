@@ -75,7 +75,7 @@
         {/if}
       {/each}
       <!-- <BodyGroup>
-        <rect height="100" width="100" stroke="black" fill="none" />
+        <rect $height="100" $width="100" stroke="black" fill="none" />
       </BodyGroup> -->
     </g>
   </Chart>

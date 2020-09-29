@@ -1,11 +1,11 @@
 <script>
   import { getChartContext } from "../Chart.svelte";
 
-  const { margins } = getChartContext();
+  const { margins, height, width } = getChartContext();
 
   $: style = `
-    height: calc(100% - ${$margins.top + $margins.bottom}px);
-    width: calc(100% - ${$margins.left + $margins.right}px);
+    height: ${$height - ($margins.top + $margins.bottom)}px;
+    width: ${$width - ($margins.left + $margins.right)}px;
     left: ${$margins.left}px;
     top: ${$margins.top}px;
   `;

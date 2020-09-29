@@ -27,5 +27,10 @@
 </style>
 
 <BodyGroup>
-  <path class="data" stroke-width={`${strokeWidth}px`} {stroke} {d} />
+  <path
+    class="data"
+    stroke-width={`${strokeWidth}px`}
+    {stroke}
+    {d}
+    vector-effect="non-scaling-stroke" />
 </BodyGroup>

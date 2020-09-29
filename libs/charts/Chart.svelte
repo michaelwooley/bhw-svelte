@@ -27,7 +27,7 @@
   const _x2 = writable<number>(x2);
   const _y2 = writable<number>(y2);
   const _margins = writable<Margins>(margins);
-  const width = writable<number>(250);
+  const width = writable<number>(450);
   const height = writable<number>(250);
   const pointer = writable<{
     x: number;
@@ -61,7 +61,7 @@
     margins.left + margins.right > $width
   ) {
     throw new Error(
-      `Sum of margins on top/bottom or left/right must be weakly less than dimensions (${$width}, ${height})`
+      `Sum of margins on top/bottom or left/right must be weakly less than dimensions (${$width}, ${$height})`
     );
   }
 
@@ -144,7 +144,7 @@
   <div class="non-svg overlapping" style={childStyle}>
     <slot>
       <div
-        style={`width:100%; height:100%;background-color: rgba(205, 220, 57, 0.3); border: 2px solid rgba(255, 152, 0, 0.7);`} />
+        style={`$width:100%; $height:100%;background-color: rgba(205, 220, 57, 0.3); border: 2px solid rgba(255, 152, 0, 0.7);`} />
     </slot>
   </div>
   <div class="svg overlapping" style={childStyle}>

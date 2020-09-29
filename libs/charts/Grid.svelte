@@ -9,16 +9,12 @@
   export let line: boolean = true;
 
   const { width, height, margins } = getChartContext();
-  const VERTICAL = {};
-  const HORIZONTAL = {};
-
-  $: orientation = vertical ? VERTICAL : HORIZONTAL;
 
   $: _ticks =
     ticks ||
-    (orientation === HORIZONTAL
-      ? getTicks(0, $height - $margins.top, count)
-      : getTicks(0, $width - $margins.right, count));
+    (vertical
+      ? getTicks(0, $width - $margins.right, count)
+      : getTicks(0, $height - $margins.top, count));
 </script>
 
 <style>
