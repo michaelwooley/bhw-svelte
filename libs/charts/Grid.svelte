@@ -1,20 +1,23 @@
 <script>
-  import { getChartContext } from "./Chart.svelte";
   import BodyDiv from "./common/BodyDiv.svelte";
-  import { getTicks } from "./utils";
 
   export let count: number = 5;
   export let ticks: number[] | undefined = undefined;
   export let vertical: boolean = false;
   export let line: boolean = true;
 
-  const { width, height, margins } = getChartContext();
-
   $: _ticks =
     ticks ||
-    (vertical
-      ? getTicks(0, $width - $margins.right, count)
-      : getTicks(0, $height - $margins.top, count));
+    Array(count)
+      .fill("")
+      .map((_, i) => (100 * (i + 1)) / count);
+  // (vertical
+  //   ? Array(count)
+  //       .fill("")
+  //       .map((_, i) => (100 * (i + 1)) / count) //getTicks(0, $width - $margins.right, count)
+  //   : getTicks(0, $height - $margins.top, count));
+
+  $: console.log(_ticks);
 </script>
 
 <style>
@@ -26,7 +29,7 @@
   .grid-item {
     position: absolute;
     left: 0;
-    top: 0;
+    bottom: 0;
   }
 </style>
 
@@ -36,12 +39,12 @@
       <div
         class="grid-item"
         class:line
-        style={`height:100%; width:0; left:${tick}px`} />
+        style={`height:100%; width:0; left:${tick}%`} />
     {:else}
       <div
         class="grid-item"
         class:line
-        style={`height:0%; width:100%; top:${tick}px`} />
+        style={`height:0%; width:100%; bottom:${tick}%`} />
     {/if}
   {/each}
 </BodyDiv>

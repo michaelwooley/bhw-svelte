@@ -6,8 +6,6 @@ const e5 = Math.sqrt(10);
 const e2 = Math.sqrt(2);
 
 export function getTicks(start, stop, count = 5) {
-  console.log("ticks called", start, stop);
-
   var reverse;
   var i = -1;
   var n;

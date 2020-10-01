@@ -60,6 +60,8 @@
 <style>
   .chart {
     /* border: 1px solid aqua; */
+    resize: both;
+    overflow: auto;
   }
 </style>
 

@@ -22,13 +22,15 @@
   export let margins: Margins = { top: 0, bottom: 50, left: 50, right: 0 };
 
   let chart: HTMLDivElement;
+  let _width: number;
+  let _height: number;
   const _x1 = writable<number>(x1);
   const _y1 = writable<number>(y1);
   const _x2 = writable<number>(x2);
   const _y2 = writable<number>(y2);
   const _margins = writable<Margins>(margins);
-  const width = writable<number>(450);
-  const height = writable<number>(250);
+  const width = writable<number>(0);
+  const height = writable<number>(0);
   const pointer = writable<{
     x: number;
     y: number;
@@ -56,14 +58,14 @@
   $: _x2.set(x2);
   $: _y2.set(y2);
   $: _margins.set(margins);
-  $: if (
-    margins.top + margins.bottom > $height ||
-    margins.left + margins.right > $width
-  ) {
-    throw new Error(
-      `Sum of margins on top/bottom or left/right must be weakly less than dimensions (${$width}, ${$height})`
-    );
-  }
+  // $: if (
+  //   margins.top + margins.bottom > $height ||
+  //   margins.left + margins.right > $width
+  // ) {
+  //   throw new Error(
+  //     `Sum of margins on top/bottom or left/right must be weakly less than dimensions (${$width}, ${$height})`
+  //   );
+  // }
 
   $: childStyle = `
   height: ${$height}px;
@@ -104,6 +106,9 @@
     clip,
     margins: _margins,
   });
+
+  $: width.set(_width);
+  $: height.set(_height);
 </script>
 
 <style>
@@ -136,8 +141,8 @@
 <div
   class="chart"
   bind:this={chart}
-  bind:clientWidth={$width}
-  bind:clientHeight={$height}
+  bind:clientWidth={_width}
+  bind:clientHeight={_height}
   on:mousemove={handleMousemove}
   on:mouseleave={handleMouseleave}
   class:clip>
