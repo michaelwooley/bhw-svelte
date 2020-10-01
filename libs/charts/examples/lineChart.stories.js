@@ -3,19 +3,7 @@ import LineChart from "./lineChart.svelte";
 export default {
   title: "Charts/Line chart",
   component: LineChart,
-  argTypes: {
-    width: {
-      control: {
-        type: "range",
-        min: 10,
-        max: 1000,
-        step: 1,
-      },
-    },
-    height: {
-      control: { type: "range", min: 10, max: 1000, step: 1 },
-    },
-  },
+  argTypes: {},
 };
 
 const Template = ({
@@ -31,7 +19,4 @@ const Template = ({
 });
 
 export const Main = Template.bind({});
-Main.args = {
-  width: 450,
-  height: 350,
-};
+Main.args = {};

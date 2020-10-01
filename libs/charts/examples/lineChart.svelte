@@ -65,20 +65,26 @@
   }
 </style>
 
-<div class="chart" style={chartStyle}>
-  <Chart {x1} {x2} {y1} {y2}>
-    <Grid line count={5} let:value />
-    <Grid vertical line count={5} let:value />
+<div>
+  <div class="content">
+    <p>Re-size the chart by dragging around the bottom-right corner.</p>
+  </div>
+  <hr />
+  <div class="chart" style={chartStyle}>
+    <Chart {x1} {x2} {y1} {y2}>
+      <Grid line count={5} let:value />
+      <Grid vertical line count={5} let:value />
 
-    <g slot="svg">
-      {#each filtered as country, i}
-        {#if i < 3}
-          <SvgLine x="x" y="y" data={country.data} />
-        {/if}
-      {/each}
-      <!-- <BodyGroup>
+      <g slot="svg">
+        {#each filtered as country, i}
+          {#if i < 3}
+            <SvgLine x="x" y="y" data={country.data} />
+          {/if}
+        {/each}
+        <!-- <BodyGroup>
         <rect $height="100" $width="100" stroke="black" fill="none" />
       </BodyGroup> -->
-    </g>
-  </Chart>
+      </g>
+    </Chart>
+  </div>
 </div>
