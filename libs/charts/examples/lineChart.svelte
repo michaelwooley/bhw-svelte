@@ -7,8 +7,8 @@
 
   import { countries, years } from "./countryData";
 
-  export let width: number = 450;
-  export let height: number = 200;
+  export let width: number = 500;
+  export let height: number = 400;
 
   let x1 = +Infinity;
   let x2 = -Infinity;

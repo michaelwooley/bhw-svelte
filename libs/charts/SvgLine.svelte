@@ -3,12 +3,12 @@
   import BodyGroup from "./common/BodyGroup.svelte";
   import type { DataRecord } from "./types";
   import { propertyAccessor } from "./utils";
-  const { xScale, yScale } = getChartContext();
+  const { xScale, yScale, width } = getChartContext();
 
   export let data: DataRecord[];
   export let x: keyof DataRecord;
   export let y: keyof DataRecord;
-  export let stroke: string = "rgba(0,0,0,0.2)";
+  export let stroke: string = "rgba(0,0,0,0.52)";
   export let strokeWidth: number = 1;
 
   $: getX = propertyAccessor<DataRecord>(x);

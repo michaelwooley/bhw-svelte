@@ -16,8 +16,6 @@
   //       .fill("")
   //       .map((_, i) => (100 * (i + 1)) / count) //getTicks(0, $width - $margins.right, count)
   //   : getTicks(0, $height - $margins.top, count));
-
-  $: console.log(_ticks);
 </script>
 
 <style>

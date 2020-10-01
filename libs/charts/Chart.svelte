@@ -29,8 +29,8 @@
   const _x2 = writable<number>(x2);
   const _y2 = writable<number>(y2);
   const _margins = writable<Margins>(margins);
-  const width = writable<number>(0);
-  const height = writable<number>(0);
+  const width = writable<number>(450);
+  const height = writable<number>(350);
   const pointer = writable<{
     x: number;
     y: number;
@@ -58,14 +58,8 @@
   $: _x2.set(x2);
   $: _y2.set(y2);
   $: _margins.set(margins);
-  // $: if (
-  //   margins.top + margins.bottom > $height ||
-  //   margins.left + margins.right > $width
-  // ) {
-  //   throw new Error(
-  //     `Sum of margins on top/bottom or left/right must be weakly less than dimensions (${$width}, ${$height})`
-  //   );
-  // }
+
+  // TODO Hide if the size of the div is too small. Allow to open in modal.
 
   $: childStyle = `
   height: ${$height}px;
@@ -126,6 +120,8 @@
   .overlapping {
     position: absolute;
     z-index: 100;
+    height: 100%;
+    width: 100%;
   }
 
   .overlapping.non-svg {
