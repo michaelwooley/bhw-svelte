@@ -24,6 +24,25 @@
     border-bottom: 1px dashed #ccc;
   }
 
+  .title {
+    margin-bottom: 0;
+  }
+
+  .line.title {
+    border-right: 2px solid #ccc;
+    border-bottom: 2px solid #ccc;
+  }
+
+  .line.vertical {
+    height: 100%;
+    width: 0;
+  }
+
+  .line.horizontal {
+    height: 0%;
+    width: 100%;
+  }
+
   .grid-item {
     position: absolute;
     left: 0;
@@ -32,17 +51,17 @@
 </style>
 
 <BodyDiv>
+  {#if vertical}
+    <div class="grid-item vertical title" class:line style={`left:0%`} />
+  {:else}
+    <div class="grid-item horizontal title" class:line style={`bottom:0%`} />
+  {/if}
+
   {#each _ticks as tick}
     {#if vertical}
-      <div
-        class="grid-item"
-        class:line
-        style={`height:100%; width:0; left:${tick}%`} />
+      <div class="grid-item vertical" class:line style={`left:${tick}%`} />
     {:else}
-      <div
-        class="grid-item"
-        class:line
-        style={`height:0%; width:100%; bottom:${tick}%`} />
+      <div class="grid-item horizontal" class:line style={`bottom:${tick}%`} />
     {/if}
   {/each}
 </BodyDiv>

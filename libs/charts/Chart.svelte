@@ -61,11 +61,6 @@
 
   // TODO Hide if the size of the div is too small. Allow to open in modal.
 
-  $: childStyle = `
-  height: ${$height}px;
-  width: ${$width}px;
-  `;
-
   const handleMousemove = <
     T extends Event & { clientX: number; clientY: number }
   >(
@@ -142,13 +137,13 @@
   on:mousemove={handleMousemove}
   on:mouseleave={handleMouseleave}
   class:clip>
-  <div class="non-svg overlapping" style={childStyle}>
+  <div class="non-svg overlapping">
     <slot>
       <div
         style={`$width:100%; $height:100%;background-color: rgba(205, 220, 57, 0.3); border: 2px solid rgba(255, 152, 0, 0.7);`} />
     </slot>
   </div>
-  <div class="svg overlapping" style={childStyle}>
+  <div class="svg overlapping">
     <Svg>
       <slot name="svg" />
     </Svg>
