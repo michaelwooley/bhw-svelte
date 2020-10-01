@@ -22,15 +22,15 @@
   export let margins: Margins = { top: 0, bottom: 50, left: 50, right: 0 };
 
   let chart: HTMLDivElement;
-  let _width: number;
-  let _height: number;
+  let _width: number = 450;
+  let _height: number = 350;
   const _x1 = writable<number>(x1);
   const _y1 = writable<number>(y1);
   const _x2 = writable<number>(x2);
   const _y2 = writable<number>(y2);
   const _margins = writable<Margins>(margins);
-  const width = writable<number>(450);
-  const height = writable<number>(350);
+  const width = writable<number>(_width);
+  const height = writable<number>(_height);
   const pointer = writable<{
     x: number;
     y: number;
